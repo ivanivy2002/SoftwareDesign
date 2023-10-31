@@ -28,9 +28,9 @@ public class CommandRegister {
         executor.registerCommand("append-tail", new AppendTailCommandVisit(editor));
         executor.registerCommand("delete", new DeleteCommandVisit(editor));
         //Undo/Redo and History
-        executor.registerCommand("undo", new UndoCommand(editor, historyTable));
-        executor.registerCommand("redo", new RedoCommand(editor, historyTable));
-        executor.registerCommand("history", new HistoryCommand(editor, historyTable));
+        executor.registerCommand("undo", new UndoCommand(historyTable));
+        executor.registerCommand("redo", new RedoCommand(historyTable));
+        executor.registerCommand("history", new HistoryCommand(historyTable));
         //Observer
         executor.registerCommand("list", new ListCommand(editor));
         executor.registerCommand("list-tree", new ListTreeCommand(editor));

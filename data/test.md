@@ -1,10 +1,3 @@
-## head
-## head
-## head
-## head
-## head
-## head
-## head
 # 我的书签
 ## 学习资源
 ### 编程
@@ -16,10 +9,3 @@
 1. 第一个有序
 2. 第二个有序
 33. 第33个有序
-## tail
-## tail
-## tail
-## tail
-## tail
-## tail
-## tail

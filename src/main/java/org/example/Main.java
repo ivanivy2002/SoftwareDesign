@@ -18,9 +18,9 @@ import org.example.command.history.HistoryTable;
 //}
 public class Main {
     public static void main(String[] args) {
-        HistoryTable historyTable = new HistoryTable();
-        CommandExecutor executor = new CommandExecutor(historyTable);
         Editor editor = new Editor();
+        HistoryTable historyTable = new HistoryTable(editor);
+        CommandExecutor executor = new CommandExecutor(historyTable);
         editor.setSubdir("./data/");
         //注册
         CommandRegister commandRegister = new CommandRegister();

@@ -16,17 +16,14 @@ public class Editor {
     public void setSubdir(String subdir) {
         this.subdir = subdir;
     }
-
     public void printLines() {
         for (int i=0;i< lines.length;i++) {
-            System.out.println("["+i+"] "+lines[i]);
+            System.out.println("[" + (i + 1) + "] " + lines[i]);
         }
     }
-
     public void setFileString(String fileString) {
         this.fileString = fileString;
     }
-
     public String getFileString() {
 //        System.out.println(fileString);
         return fileString;

@@ -79,8 +79,9 @@ public class DeleteCommandVisit extends VisitEditorCommand {
                 return -1;
             }
             lineNum--; // 将行数转换为数组索引
+            String deletedLine = lines[lineNum];
             lines = StringTool.deleteLine(lines,lineNum);
-            ConsoleTool.println("Deleted line [" + (lineNum + 1)+ "] " + lines[lineNum]);
+            ConsoleTool.println("Deleted line [" + (lineNum + 1) + "] " + deletedLine);
             editor.setLines(lines);
         }
         return 0;

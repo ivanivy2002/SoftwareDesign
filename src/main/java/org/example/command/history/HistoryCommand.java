@@ -5,10 +5,9 @@ import org.example.command.abstractCommand.VisitHistoryCommand;
 import org.example.utils.ConsoleTool;
 
 public class HistoryCommand extends VisitHistoryCommand {
-    public HistoryCommand(Editor editor, HistoryTable historyTable) {
-        super(editor, historyTable);
+    public HistoryCommand(HistoryTable historyTable) {
+        super(historyTable);
     }
-
     @Override
     public int execute(String[] newArgs) {
         ConsoleTool.println("History Listing...");

@@ -6,8 +6,8 @@ import org.example.utils.ConsoleTool;
 
 public class RedoCommand extends VisitHistoryCommand {
 
-    public RedoCommand(Editor editor, HistoryTable historyTable) {
-        super(editor, historyTable);
+    public RedoCommand(HistoryTable historyTable) {
+        super(historyTable);
     }
 
     @Override

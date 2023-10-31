@@ -4,11 +4,11 @@ import org.example.Editor;
 import org.example.command.history.HistoryTable;
 
 public class VisitHistoryCommand implements ICommand {
-    protected Editor editor;
+    //    protected Editor editor;
     protected HistoryTable historyTable;
 
-    public VisitHistoryCommand(Editor editor, HistoryTable historyTable) {
-        this.editor = editor;
+    public VisitHistoryCommand(HistoryTable historyTable) {
+//        this.editor = editor;
         this.historyTable = historyTable;
     }
 

@@ -2,6 +2,7 @@ package org.example.command;
 
 import org.example.command.abstractCommand.ICommand;
 import org.example.command.history.HistoryTable;
+import org.example.utils.ConsoleTool;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,6 @@ public class CommandExecutor {
         this.commands = new HashMap<>();
         this.historyTable = historyTable;
     }
-
     public void registerCommand(String commandString, ICommand command) {
         String[] args = commandString.split("\\s+"); // 使用空格作为分隔符切割命令字符串
         commands.put(args[0], command);
@@ -32,7 +32,7 @@ public class CommandExecutor {
             }
             //                System.out.println("Command executed failed.");
         } else {
-            System.out.println("Unknown command: " + commandString);
+            ConsoleTool.println("Unknown command: " + commandString);
         }
     }
 }
