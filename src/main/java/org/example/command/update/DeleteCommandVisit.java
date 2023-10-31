@@ -1,15 +1,15 @@
 package org.example.command.update;
 
 import org.example.Editor;
-import org.example.command.abstractCommand.EditorCommand;
+import org.example.command.abstractCommand.VisitEditorCommand;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringTool;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeleteCommand extends EditorCommand {
-    public DeleteCommand(Editor editor) {
+public class DeleteCommandVisit extends VisitEditorCommand {
+    public DeleteCommandVisit(Editor editor) {
         super(editor);
     }
 
@@ -55,7 +55,7 @@ public class DeleteCommand extends EditorCommand {
 ////        editor.insert(lineNum, lineContent);
 //    }
 
-    public void execute(String[] args) {
+    public int execute(String[] args) {
         String[] lines = editor.getLines();
         if (StringTool.isNaturalNumber(args[0])) {
             //找文字
@@ -76,12 +76,13 @@ public class DeleteCommand extends EditorCommand {
             int lineNum = Integer.parseInt(args[0]);
             if (lineNum < 1 || lineNum > lines.length) {
                 ConsoleTool.println("EXC: Line number out of range");
-                return;
+                return -1;
             }
             lineNum--; // 将行数转换为数组索引
             lines = StringTool.deleteLine(lines,lineNum);
             ConsoleTool.println("Deleted line [" + (lineNum + 1)+ "] " + lines[lineNum]);
             editor.setLines(lines);
         }
+        return 0;
     }
 }

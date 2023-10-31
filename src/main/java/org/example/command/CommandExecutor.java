@@ -1,15 +1,18 @@
 package org.example.command;
 
 import org.example.command.abstractCommand.ICommand;
+import org.example.command.history.HistoryTable;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CommandExecutor {
     private final Map<String, ICommand> commands;
+    HistoryTable historyTable;
 
-    public CommandExecutor() {
+    public CommandExecutor(HistoryTable historyTable) {
         this.commands = new HashMap<>();
+        this.historyTable = historyTable;
     }
 
     public void registerCommand(String commandString, ICommand command) {
@@ -23,7 +26,11 @@ public class CommandExecutor {
         System.arraycopy(args, 1, newArgs, 0, args.length - 1);
         ICommand command = commands.get(args[0]);
         if (command != null) {
-            command.execute(newArgs);
+            if (command.execute(newArgs) >= 0) {
+//                System.out.println("Command executed successfully.");
+                historyTable.push(commandString);
+            }
+            //                System.out.println("Command executed failed.");
         } else {
             System.out.println("Unknown command: " + commandString);
         }

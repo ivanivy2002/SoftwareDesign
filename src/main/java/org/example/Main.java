@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.client.Client;
 import org.example.command.*;
+import org.example.command.history.HistoryTable;
 
 //public class Main {
 //    public static void main(String[] args) {
@@ -17,18 +18,19 @@ import org.example.command.*;
 //}
 public class Main {
     public static void main(String[] args) {
-        CommandExecutor executor = new CommandExecutor();
+        HistoryTable historyTable = new HistoryTable();
+        CommandExecutor executor = new CommandExecutor(historyTable);
         Editor editor = new Editor();
         editor.setSubdir("./data/");
         //注册
         CommandRegister commandRegister = new CommandRegister();
-        commandRegister.commandReg(executor, editor);
+        commandRegister.commandReg(executor, editor, historyTable);
         Client client = new Client();
         executor.executeCommand("load test.md");
         executor.executeCommand("list");
-        executor.executeCommand("append-head ## head");
-        executor.executeCommand("append-tail ## tail");
-        executor.executeCommand("list");
+//        executor.executeCommand("append-head ## head");
+//        executor.executeCommand("append-tail ## tail");
+//        executor.executeCommand("list");
         executor.executeCommand("save");
 
 //        executor.executeCommand("insert ## end");
