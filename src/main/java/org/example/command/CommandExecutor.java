@@ -1,5 +1,7 @@
 package org.example.command;
 
+import org.example.command.abstractCommand.ICommand;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,14 +17,8 @@ public class CommandExecutor {
         commands.put(args[0], command);
     }
     public void executeCommand(String commandString) {
+        if(commandString.trim().isEmpty())    return;
         String[] args = commandString.split("\\s+"); // 使用空格作为分隔符切割命令字符串
-//        if(args.length==0){
-//            System.out.println("no command");
-//            return;
-//        }
-//        if(args.length==1){
-//            System.out.println("no args");
-//        }
         String[] newArgs = new String[args.length - 1];
         System.arraycopy(args, 1, newArgs, 0, args.length - 1);
         ICommand command = commands.get(args[0]);

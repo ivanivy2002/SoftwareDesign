@@ -1,5 +1,7 @@
-package org.example.command;
+package org.example.command.loadSave;
 import org.example.Editor;
+import org.example.command.abstractCommand.EditorCommand;
+import org.example.utils.ConsoleTool;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -11,7 +13,7 @@ public class SaveCommand extends EditorCommand {
 
     @Override
     public void execute(String[] newArgs) {
-        System.out.println("Saving file...");
+        ConsoleTool.println("Saving file...");
         // 执行保存文件的操作
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(editor.getFileString()))) {
                 for (String line : editor.getLines()) {

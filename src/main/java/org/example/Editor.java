@@ -18,8 +18,8 @@ public class Editor {
     }
 
     public void printLines() {
-        for (String line : lines) {
-            System.out.println(line);
+        for (int i=0;i< lines.length;i++) {
+            System.out.println("["+i+"] "+lines[i]);
         }
     }
 

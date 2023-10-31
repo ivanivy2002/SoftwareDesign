@@ -1,6 +1,7 @@
-package org.example.command;
+package org.example.command.observe;
 
 import org.example.Editor;
+import org.example.command.abstractCommand.EditorCommand;
 
 public class ListCommand extends EditorCommand {
 
