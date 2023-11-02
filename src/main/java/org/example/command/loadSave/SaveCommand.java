@@ -14,9 +14,10 @@ public class SaveCommand extends VisitEditorCommand {
 
     @Override
     public int execute(String[] newArgs) {
-        ConsoleTool.println("Saving file...");
+        String fileString = editor.getFileString();
+        ConsoleTool.println("Saving " + fileString);
         // 执行保存文件的操作
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(editor.getFileString()))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileString))) {
                 for (String line : editor.getLines()) {
                     writer.write(line);
                     writer.newLine();

@@ -63,7 +63,9 @@ public class DeleteCommand extends VisitEditorCommand {
             List<Integer> matchingLineNums = new ArrayList<>();
             for (int i = 0; i < lines.length; i++) {
                 String trueLine = lines[i].split("\\s+", 2)[1];
-                if(trueLine.equals(StringTool.catString(args,0))){
+//                ConsoleTool.println("trueLine:　"+trueLine);
+//                ConsoleTool.println("args: "+StringTool.catString(args,0));
+                if (trueLine.trim().equals(StringTool.catString(args, 0).trim())) {
                     matchingLineNums.add(i);
                 }
             }

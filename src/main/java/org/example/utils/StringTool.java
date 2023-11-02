@@ -93,6 +93,13 @@ public class StringTool {
         return String.valueOf(str).repeat(Math.max(0, count));
     }
 
+    public static String convertLineNumber(int totalLines, int lineNumber) {
+//        int leadingZeros = (int) (Math.log10(totalLines) + 1) - (int) (Math.log10(lineNumber) + 1);
+//        return "0".repeat(Math.max(0, leadingZeros)) + lineNumber;
+        int leadingZeros = (int) (Math.log10(totalLines) + 1);
+        String format = "%0" + leadingZeros + "d";
+        return String.format(format, lineNumber);
+    }
 // editor.setLines(lines);
 //    public String extractText(String line) {
 //        String regex = "(?<![#*.])\\b(.*)";

@@ -11,7 +11,6 @@ import java.util.*;
 public class HistoryTable {
     protected final Editor editor;
     protected final LinkedHashMap<String, String[]> historyMap;
-
     protected final LinkedHashMap<String, String[]> redoMap;
 
     protected List<CommandLog> Logs = new ArrayList<>();
@@ -32,6 +31,7 @@ public class HistoryTable {
 //            !name.matches("(?i:list|list-tree|dir-tree|history|redo|undo|exit)")
 //            commandHistories.add(new CommandHistory(TimeTool.getCurrentTime(), commandString));
             historyMap.put(commandString, editor.getLines());
+            redoMap.clear();
 //            ConsoleTool.println("pushed");
 //            index = commandHistories.size();
         }
@@ -78,12 +78,16 @@ public class HistoryTable {
         String lastKey = this.lastKey(redoMap);
         historyMap.put(lastKey, redoMap.get(lastKey));
         redoMap.remove(lastKey);
-        lastKey = this.lastKey(redoMap);
-        editor.setLines(redoMap.get(lastKey));
+        if (redoMap.isEmpty()) {
+            lastKey = this.lastKey(historyMap);
+            editor.setLines(historyMap.get(lastKey));
+        } else {
+            lastKey = this.lastKey(redoMap);
+            editor.setLines(redoMap.get(lastKey));
+        }
+
         return 0;
     }
-
-
 
     public void list() {
         ConsoleTool.println("C List");
@@ -96,11 +100,35 @@ public class HistoryTable {
         for (Map.Entry<String, String[]> entry : redoMap.entrySet()) {
             System.out.println("[R" + (i++) + "] " + entry.getKey());
         }
-
 //        for (String commandString : historyMap.keySet()) {
 ////            if (commandHistory.commandString.equals("init")) continue;
 //            System.out.println(commandString);
 //        }
+    }
+
+    public static <K, V> V getElementAtIndex(LinkedHashMap<K, V> map, int index) {
+        Iterator<Map.Entry<K, V>> iterator = map.entrySet().iterator();
+        int count = 0;
+        while (iterator.hasNext()) {
+            Map.Entry<K, V> entry = iterator.next();
+            if (count == index) {
+                return entry.getValue();
+            }
+            count++;
+        }
+        throw new IndexOutOfBoundsException("Index out of range: " + index);
+    }
+
+    public void showHistoryMap(int index) {
+        for (String ele : getElementAtIndex(historyMap, index)) {
+            System.out.println(ele);
+        }
+    }
+
+    public void showRedoMap(int index) {
+        for (String ele : getElementAtIndex(redoMap, index)) {
+            System.out.println(ele);
+        }
     }
 
     public void listLog() {

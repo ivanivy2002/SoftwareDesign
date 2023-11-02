@@ -1,5 +1,6 @@
 package org.example.observer;
 
+import org.example.utils.ConsoleTool;
 import org.example.utils.StringTool;
 
 import java.util.List;
@@ -14,10 +15,14 @@ public class TreeBuilder {
 
 
     public static void build(String[] lines) {
+        if (lines == null || lines.length == 0) {
+            ConsoleTool.println("ERR: Empty Lines!");
+            return;
+        }
         int[] levelLine = parseLevel(lines);
         Node root = buildTreeByLevel(levelLine);
         reformatTree(lines, root);
-//        reformatTreeVertical();
+        reformatTreeVertical();
     }
 //    public static void main(String[] args) {
 //        int[] level = {1, 2, 1, LEAF_VALUE,1, 2,3,LEAF_VALUE,LEAF_VALUE,3,2,3};
@@ -72,6 +77,7 @@ public class TreeBuilder {
             return;
         }
         String[] treeLine = new String[lines.length];
+        int levelBase = getNode(root, 0).value - 1;
 //        int lineNum = root.lineNum;
         for (int lineNum = 0; lineNum < lines.length; lineNum++) {
             Node cur = getNode(root, lineNum);
@@ -86,8 +92,10 @@ public class TreeBuilder {
                 } else {
                     marker = "";
                 }
-                content = String.format("%s %s %s %s", StringTool.repeatString("\t", repeatTimes), "├──", marker, content);
-                if ((lineNum < lines.length - 1) && (level[lineNum + 1] != (level[lineNum])) || (lineNum == lines.length - 1)) {
+                repeatTimes -= levelBase;
+                content = String.format("%s%s %s%s", StringTool.repeatString("    ", repeatTimes), "├──", marker, content);
+//                if ((lineNum < lines.length - 1) && (level[lineNum + 1] != (level[lineNum])) || (lineNum == lines.length - 1)) {
+                if (cur.parent.children.size() - 1 == cur.parent.children.indexOf(cur)) {
                     content = content.replace("├──", "└──");
                 }
                 treeLine[lineNum] = content;
@@ -102,20 +110,29 @@ public class TreeBuilder {
     public static void reformatTreeVertical() {
         for (int i = 0; i < tree.length; i++) {
             Node root = getNode(treeRoot, i);
-            if (!root.parent.children.isEmpty()) {
-                if (root.parent.children.size() - 1 != root.parent.children.indexOf(root)) {
-                    for (Node child : root.parent.children) {
-                        tree[child.lineNum] = StringTool.replaceStringAt(tree[child.lineNum], tree[i].indexOf("├──"), "│  ");
+            if (root.parent.children.size() - 1 != root.parent.children.indexOf(root)) {
+                if (!root.children.isEmpty()) {
+                    int index = Math.max(tree[i].indexOf("├──"), tree[i].indexOf("└──"));
+//                    for (Node child : root.children) {
+                    for (int j = i + 1; j < tree.length; j++) {
+                        if (belong(getNode(treeRoot, j), root)) {
+                            tree[j] = StringTool.replaceStringAt(tree[j], index, "│  ");
+                        }
                     }
+//                    }
                 }
             }
         }
     }
 
     public static void printTreeAll() {
+        if (tree == null) {
+            ConsoleTool.println("ERR: Empty Tree!");
+            return;
+        }
         for (int i = 0; i < tree.length; i++) {
 //            System.out.println("["+i+":"+level[i]+"]"+tree[i]);
-            System.out.println("[" + i + "] " + tree[i]);
+            System.out.println("[" + StringTool.convertLineNumber(tree.length, i) + "] " + tree[i]);
         }
     }
 
@@ -146,5 +163,34 @@ public class TreeBuilder {
             }
         }
         return null;
+    }
+
+    public static boolean belong(Node cur, Node root) {
+        while (cur.parent != null) {
+            if (cur.parent == root) {
+                return true;
+            }
+            cur = cur.parent;
+        }
+        return false;
+    }
+
+    public static void showDir(String[] lines, Integer matchingLineNum) {
+        int[] levelLine = parseLevel(lines);
+        int i = matchingLineNum;
+        for (; i < lines.length; i++) {
+            if (level[i] < level[matchingLineNum]) {
+//                System.out.println(tree[i]);
+                break;
+            }
+        }
+        i--;
+        String[] treeLine = new String[i - matchingLineNum + 1];
+        System.arraycopy(lines, matchingLineNum, treeLine, 0, treeLine.length);
+        levelLine = parseLevel(treeLine);
+        Node root = buildTreeByLevel(levelLine);
+        reformatTree(treeLine, root);
+        reformatTreeVertical();
+        printTreeAll();
     }
 }

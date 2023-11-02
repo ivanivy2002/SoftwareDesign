@@ -10,7 +10,12 @@ public class Test {
     public static void main(String[] args) {
         ConsoleTool.println(StringTool.repeatString("Ass", 0));
         ConsoleTool.println(TimeTool.getCurrentTime());
-        ConsoleTool.println(StringTool.replaceStringAt("aaaabbbbcccc", 5, "re"));
+        String c = "aaaabbbbcccc";
+        ConsoleTool.println(String.valueOf(c.indexOf("bbbb")));
+        ConsoleTool.println(String.valueOf(c.indexOf("dd")));
+
+
+        ConsoleTool.println(StringTool.replaceStringAt(c, c.indexOf("bbbb"), "re"));
 
 //        String regex = "^(?<=\\#{0,}|\\*{0,}|\\d{0,}\\.)\\S.*";
 //        String regex ="(?<![#*\\d.])[#*]*(?=\\S)";

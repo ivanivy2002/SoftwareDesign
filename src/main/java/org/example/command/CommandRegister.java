@@ -13,6 +13,7 @@ public class CommandRegister {
         //Load and Save
         executor.registerCommand("load", new LoadCommand(editor));
         executor.registerCommand("save", new SaveCommand(editor));
+        executor.registerCommand("reset", new ResetCommand(editor));
         //Update
         executor.registerCommand("insert", new InsertCommand(editor));
         executor.registerCommand("append-head", new AppendHeadCommand(editor));
