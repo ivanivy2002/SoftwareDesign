@@ -17,5 +17,3 @@
 | dir-tree                       | 1                 |
 | history                        | 1                 |
 | status                         | 1                 |
-
-时间计算有bug
