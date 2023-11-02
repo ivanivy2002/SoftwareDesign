@@ -1,11 +1,14 @@
 package org.example.utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringTool {
+
 //    public boolean isNumeric(String str) {
 //        return str.matches("-?\\d+(\\.\\d+)?");
 //    }
@@ -16,12 +19,20 @@ public class StringTool {
         return !str.matches("\\d+");
     }
 
-    public static String catString(String[] strings,int st ) {
+    public static String catString(String[] strings, int st) {
         StringBuilder sb = new StringBuilder();
         for (int i = st; i < strings.length; i++) {
             sb.append(strings[i]).append(" "); // 添加空格分隔每个参数
         }
         return sb.toString().trim();
+    }
+
+    public static String replaceCharAt(String s, int pos, char c) {
+        return s.substring(0, pos) + c + s.substring(pos + 1);
+    }
+
+    public static String replaceStringAt(String s, int pos, String c) {
+        return s.substring(0, pos) + c + s.substring(pos + c.length());
     }
 
     public static String[] insertLine(String[] lines,int lineNum, String lineContent){
@@ -61,6 +72,25 @@ public class StringTool {
         lineNums.clear();
         lineNums.addAll(deletedLineNums);
         return lines;
+    }
+
+    public static String getCommandName(String commandString) {
+        String[] args = commandString.split("\\s+"); // 使用空格作为分隔符切割命令字符串
+        return args[0];
+    }
+
+    public static int countHashes(String str) {
+        int count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '#') {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static String repeatString(String str, int count) {
+        return String.valueOf(str).repeat(Math.max(0, count));
     }
 
 // editor.setLines(lines);

@@ -11,7 +11,8 @@ public class HistoryCommand extends VisitHistoryCommand {
     @Override
     public int execute(String[] newArgs) {
         ConsoleTool.println("History Listing...");
-        historyTable.list();
+//        historyTable.list();
+        historyTable.listLog();
         return 0;
     }
 }

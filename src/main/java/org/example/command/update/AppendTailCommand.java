@@ -5,8 +5,8 @@ import org.example.command.abstractCommand.VisitEditorCommand;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringTool;
 
-public class AppendTailCommandVisit extends VisitEditorCommand {
-    public AppendTailCommandVisit(Editor editor) {
+public class AppendTailCommand extends VisitEditorCommand {
+    public AppendTailCommand(Editor editor) {
         super(editor);
     }
 
@@ -23,13 +23,13 @@ public class AppendTailCommandVisit extends VisitEditorCommand {
     public int execute(String[] newArgs) {
         ConsoleTool.println("Appending Tail...");
         String[] lines = editor.getLines();
-        int lineNum = lines.length;
+//        int lineNum = lines.length;
         String lineContent =StringTool.catString(newArgs,0);
         if(lineContent.split("\\s+", 2).length != 2){
             ConsoleTool.println("ERR: lineContent without Marking Symbol");
             return -1;
         }
-        lines = StringTool.insertLine(lines,lineNum,lineContent);
+        lines = StringTool.insertLine(lines, lines.length, lineContent);
         editor.setLines(lines);
         return 0;
     }

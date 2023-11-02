@@ -8,8 +8,8 @@ import org.example.utils.StringTool;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeleteCommandVisit extends VisitEditorCommand {
-    public DeleteCommandVisit(Editor editor) {
+public class DeleteCommand extends VisitEditorCommand {
+    public DeleteCommand(Editor editor) {
         super(editor);
     }
 
@@ -67,6 +67,10 @@ public class DeleteCommandVisit extends VisitEditorCommand {
                     matchingLineNums.add(i);
                 }
             }
+            if (matchingLineNums.isEmpty()) {
+                ConsoleTool.println("ERR: No matching line");
+                return -1;
+            }
             lines=StringTool.deleteLines(lines,matchingLineNums);
             editor.setLines(lines);
         }
@@ -75,7 +79,7 @@ public class DeleteCommandVisit extends VisitEditorCommand {
             ConsoleTool.println("Pairing LineNums");
             int lineNum = Integer.parseInt(args[0]);
             if (lineNum < 1 || lineNum > lines.length) {
-                ConsoleTool.println("EXC: Line number out of range");
+                ConsoleTool.println("ERR: Line number out of range");
                 return -1;
             }
             lineNum--; // 将行数转换为数组索引

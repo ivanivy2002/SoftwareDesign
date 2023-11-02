@@ -5,10 +5,10 @@ import org.example.command.abstractCommand.VisitEditorCommand;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringTool;
 
-public class AppendHeadCommandVisit extends VisitEditorCommand {
+public class AppendHeadCommand extends VisitEditorCommand {
 
 
-    public AppendHeadCommandVisit(Editor editor) {
+    public AppendHeadCommand(Editor editor) {
         super(editor);
     }
 
@@ -24,14 +24,14 @@ public class AppendHeadCommandVisit extends VisitEditorCommand {
 //    }
     public int execute(String[] newArgs) {
         ConsoleTool.println("Appending Head...");
-        int lineNum = 0;
+//        int lineNum = 0;
         String[] lines = editor.getLines();
         String lineContent =StringTool.catString(newArgs,0);
         if(lineContent.split("\\s+", 2).length != 2){
             ConsoleTool.println("ERR: lineContent without Marking Symbol");
             return -1;
         }
-        lines = StringTool.insertLine(lines,lineNum,lineContent);
+        lines = StringTool.insertLine(lines, 0, lineContent);
         editor.setLines(lines);
         return 0;
     }

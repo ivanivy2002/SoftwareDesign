@@ -1,4 +1,5 @@
 import org.example.utils.ConsoleTool;
+import org.example.utils.StringTool;
 import org.example.utils.TimeTool;
 
 import java.util.regex.Matcher;
@@ -7,8 +8,10 @@ import java.util.Scanner;
 
 public class Test {
     public static void main(String[] args) {
-
+        ConsoleTool.println(StringTool.repeatString("Ass", 0));
         ConsoleTool.println(TimeTool.getCurrentTime());
+        ConsoleTool.println(StringTool.replaceStringAt("aaaabbbbcccc", 5, "re"));
+
 //        String regex = "^(?<=\\#{0,}|\\*{0,}|\\d{0,}\\.)\\S.*";
 //        String regex ="(?<![#*\\d.])[#*]*(?=\\S)";
 //        String regex ="(?<=[#*])[#*]*\\S.*";

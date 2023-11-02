@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.utils.ConsoleTool;
+
 public class Editor {
     public String[] lines;
     public  String subdir;

@@ -1,0 +1,150 @@
+package org.example.observer;
+
+import org.example.utils.StringTool;
+
+import java.util.List;
+
+import static org.example.observer.TreeViewBuilder.LEAF_VALUE;
+
+public class TreeBuilder {
+
+    public static String[] tree;
+    public static int[] level;
+    public static Node treeRoot;
+
+
+    public static void build(String[] lines) {
+        int[] levelLine = parseLevel(lines);
+        Node root = buildTreeByLevel(levelLine);
+        reformatTree(lines, root);
+//        reformatTreeVertical();
+    }
+//    public static void main(String[] args) {
+//        int[] level = {1, 2, 1, LEAF_VALUE,1, 2,3,LEAF_VALUE,LEAF_VALUE,3,2,3};
+//        Node root = buildTree(level);
+//        printTree(root);
+//        System.out.println();
+//    }
+
+    public static int[] parseLevel(String[] lines) {
+        int[] levelLine = new int[lines.length];
+        for (int i = 0; i < lines.length; i++) {
+//            lines[i] = args[0];
+            levelLine[i] = StringTool.countHashes(lines[i].split("\\s+", 2)[0]);
+            if (levelLine[i] == 0) {
+                levelLine[i] = LEAF_VALUE;
+            }
+        }
+        level = levelLine;
+        return levelLine;
+    }
+
+    public static Node buildTreeByLevel(int[] level) {
+        if (level == null || level.length == 0) {
+            return null;
+        }
+        Node root = new Node(-1, 0);
+        Node cur = root;
+        int i = 0;
+        while (i < level.length) {
+            Node node = new Node(i, level[i]);
+            // 构建子节点
+            if (level[i] == LEAF_VALUE) {
+                cur.children.add(node);
+                node.parent = cur;
+//                cur = node;
+            } else {
+                while (cur.parent != null && cur.value >= level[i]) {
+                    cur = cur.parent;
+                }
+                cur.children.add(node);
+                node.parent = cur;
+                cur = node;
+            }
+            i++;
+        }
+        treeRoot = root;
+        return root;
+    }
+
+    public static void reformatTree(String[] lines, Node root) {
+        if (root == null) {
+            return;
+        }
+        String[] treeLine = new String[lines.length];
+//        int lineNum = root.lineNum;
+        for (int lineNum = 0; lineNum < lines.length; lineNum++) {
+            Node cur = getNode(root, lineNum);
+            String content = null;
+            if (cur.value != 0) {
+                String marker = lines[lineNum].split("\\s+", 2)[0];
+                content = lines[lineNum].split("\\s+", 2)[1];
+                int repeatTimes = level[lineNum] - 1;
+                if (cur.value == LEAF_VALUE) {
+                    marker = marker.replace("*", "·");
+                    repeatTimes = cur.parent.value;
+                } else {
+                    marker = "";
+                }
+                content = String.format("%s %s %s %s", StringTool.repeatString("\t", repeatTimes), "├──", marker, content);
+                if ((lineNum < lines.length - 1) && (level[lineNum + 1] != (level[lineNum])) || (lineNum == lines.length - 1)) {
+                    content = content.replace("├──", "└──");
+                }
+                treeLine[lineNum] = content;
+            }
+        }
+//        for (Node child : root.children) {
+//            reformatTree(lines, child, tab + 1);
+//        }
+        tree = treeLine;
+    }
+
+    public static void reformatTreeVertical() {
+        for (int i = 0; i < tree.length; i++) {
+            Node root = getNode(treeRoot, i);
+            if (!root.parent.children.isEmpty()) {
+                if (root.parent.children.size() - 1 != root.parent.children.indexOf(root)) {
+                    for (Node child : root.parent.children) {
+                        tree[child.lineNum] = StringTool.replaceStringAt(tree[child.lineNum], tree[i].indexOf("├──"), "│  ");
+                    }
+                }
+            }
+        }
+    }
+
+    public static void printTreeAll() {
+        for (int i = 0; i < tree.length; i++) {
+//            System.out.println("["+i+":"+level[i]+"]"+tree[i]);
+            System.out.println("[" + i + "] " + tree[i]);
+        }
+    }
+
+    public static void printTree(Node root) {
+        if (root == null) {
+            return;
+        }
+        System.out.println(tree[root.lineNum]);
+        for (Node child : root.children) {
+//            System.out.println("L"+root.lineNum+":"+root.value+" child: L"+child.lineNum +":"+ child.value + " ");
+            printTree(child);
+        }
+//        printTree(root.right);
+//        System.out.println();
+    }
+
+    public static Node getNode(Node root, int lineNum) {
+        if (root == null) {
+            return null;
+        }
+        if (root.lineNum == lineNum) {
+            return root;
+        }
+        for (Node child : root.children) {
+            Node node = getNode(child, lineNum);
+            if (node != null) {
+                return node;
+            }
+        }
+        return null;
+    }
+}

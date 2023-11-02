@@ -26,13 +26,17 @@ public class Main {
         CommandRegister commandRegister = new CommandRegister();
         commandRegister.commandReg(executor, editor, historyTable);
         Client client = new Client();
-        executor.executeCommand("load test.md");
-        executor.executeCommand("list");
-//        executor.executeCommand("append-head ## head");
-//        executor.executeCommand("append-tail ## tail");
-//        executor.executeCommand("list");
+        executor.executeCommand("load sim.md");
         executor.executeCommand("save");
-
+        executor.executeCommand("list");
+        executor.executeCommand("append-head # head");
+        executor.executeCommand("append-tail # tail");
+//        executor.executeCommand("list");
+        executor.executeCommand("insert 3 ## 3 to be deleted");
+        executor.executeCommand("delete 3");
+        executor.executeCommand("list");
+        executor.executeCommand("list-tree");
+        executor.executeCommand("dir-tree 四级标题");
 //        executor.executeCommand("insert ## end");
 //        executor.executeCommand("list");
         client.clientRun(executor);

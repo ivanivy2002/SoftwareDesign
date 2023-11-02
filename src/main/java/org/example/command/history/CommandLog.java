@@ -1,10 +1,10 @@
 package org.example.command.history;
 
-public class CommandHistory {
+public class CommandLog {
     String timestamp;
     String commandString;
 
-    CommandHistory(String timestamp, String commandString) {
+    CommandLog(String timestamp, String commandString) {
         this.timestamp = timestamp;
         this.commandString = commandString;
     }

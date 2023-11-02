@@ -5,8 +5,8 @@ import org.example.command.abstractCommand.VisitEditorCommand;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringTool;
 
-public class InsertCommandVisit extends VisitEditorCommand {
-    public InsertCommandVisit(Editor editor) {
+public class InsertCommand extends VisitEditorCommand {
+    public InsertCommand(Editor editor) {
         super(editor);
     }
     @Override

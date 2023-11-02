@@ -13,6 +13,10 @@ public class RedoCommand extends VisitHistoryCommand {
     @Override
     public int execute(String[] newArgs) {
         ConsoleTool.println("Redoing...");
+        if (historyTable.recover() < 0) {
+            ConsoleTool.println("ERR: Cannot redo");
+            return -1;
+        }
         return 0;
     }
 }
