@@ -7,6 +7,8 @@ import org.example.command.history.*;
 import org.example.command.loadSave.*;
 import org.example.command.observe.*;
 import org.example.command.update.*;
+import org.example.exit.ExitCommand;
+
 public class CommandRegister {
 
     public void commandReg(CommandExecutor executor, Editor editor, HistoryTable historyTable) {
@@ -23,11 +25,14 @@ public class CommandRegister {
         executor.registerCommand("undo", new UndoCommand(historyTable));
         executor.registerCommand("redo", new RedoCommand(historyTable));
         executor.registerCommand("history", new HistoryCommand(historyTable));
+        executor.registerCommand("status", new StatusCommand(historyTable));
         //Observer
         executor.registerCommand("list", new ListCommand(editor));
         executor.registerCommand("list-tree", new ListTreeCommand(editor));
         executor.registerCommand("dir-tree", new DirTreeCommand(editor));
         //Debug
         executor.registerCommand("c", new CheckCommand(historyTable));
+        //Exit
+        executor.registerCommand("exit", new ExitCommand(historyTable));
     }
 }

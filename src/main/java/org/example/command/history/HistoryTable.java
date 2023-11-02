@@ -4,8 +4,8 @@ import org.example.Editor;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringSet;
 import org.example.utils.StringTool;
-import org.example.utils.TimeTool;
 
+import java.io.IOException;
 import java.util.*;
 
 public class HistoryTable {
@@ -13,12 +13,14 @@ public class HistoryTable {
     protected final LinkedHashMap<String, String[]> historyMap;
     protected final LinkedHashMap<String, String[]> redoMap;
 
-    protected List<CommandLog> Logs = new ArrayList<>();
+    //    protected List<CommandLog> logs = new ArrayList<>();
+    protected Session session;
     public HistoryTable(Editor editor) {
         this.editor = editor;
         this.historyMap = new LinkedHashMap<>();
         this.redoMap = new LinkedHashMap<>();
         this.historyMap.put("init", editor.getLines());
+        session = new Session(editor);
     }
     //    private final CommandHistory[] commandHistories;
 //    private int index = 0;
@@ -39,7 +41,7 @@ public class HistoryTable {
 
     public void pushLog(String commandString) {
         if (!StringSet.DebugSet.contains(StringTool.getCommandName(commandString))) {
-            Logs.add(new CommandLog(TimeTool.getCurrentTime(), commandString));
+            session.push(commandString);
         }
     }
 
@@ -132,9 +134,29 @@ public class HistoryTable {
     }
 
     public void listLog() {
-        for (CommandLog commandHistory : Logs) {
-            System.out.println(commandHistory.timestamp + " " + commandHistory.commandString);
+        session.listLog();
+    }
+
+    public void listLogRecent(int num) {
+        int size = session.getLogs().size();
+        if (num > size) {
+            num = size;
         }
+        for (int i = size - 1 - num + 1; i <= size - 1; i++) {
+            System.out.println(session.getLogs().get(i).timestamp + " " + session.getLogs().get(i).commandString);
+        }
+    }
+
+    public void statusCurrent() {
+        session.printStatus();
+    }
+
+    public void statusAll() {
+        session.printAll();
+    }
+
+    public void saveLog() {
+        session.saveLog();
     }
 //    public boolean isEmpty() {
 //        return index == 0;

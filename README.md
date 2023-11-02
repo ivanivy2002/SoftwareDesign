@@ -16,5 +16,6 @@
 | list-tree                      | 1                 |
 | dir-tree                       | 1                 |
 | history                        | 1                 |
-| status                         | 0                 |
+| status                         | 1                 |
 
+时间计算有bug

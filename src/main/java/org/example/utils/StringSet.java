@@ -22,5 +22,6 @@ public class StringSet {
     static {
         DebugSet = new HashSet<>();
         DebugSet.add("c");
+        DebugSet.add("reset");
     }
 }

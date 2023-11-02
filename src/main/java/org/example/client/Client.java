@@ -10,11 +10,11 @@ public class Client {
         while (true) {
             System.out.print("$ ");
             String input = scanner.nextLine();
+            executor.executeCommand(input);
             if (input.equalsIgnoreCase("exit")) {
                 System.out.println("Exiting...");
                 break;
             }
-            executor.executeCommand(input);
         }
         scanner.close();
     }

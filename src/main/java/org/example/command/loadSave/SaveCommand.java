@@ -14,7 +14,7 @@ public class SaveCommand extends VisitEditorCommand {
 
     @Override
     public int execute(String[] newArgs) {
-        String fileString = editor.getFileString();
+        String fileString = editor.getSubdir() + editor.getFileString();
         ConsoleTool.println("Saving " + fileString);
         // 执行保存文件的操作
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileString))) {
