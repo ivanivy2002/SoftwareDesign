@@ -1,11 +1,7 @@
 package org.example.utils;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class StringTool {
 
@@ -15,7 +11,7 @@ public class StringTool {
 //    public boolean isInteger(String str) {
 //        return str.matches("-?\\d+");
 //    }
-    public static boolean isNaturalNumber(String str) {
+public static boolean isNotNaturalNumber(String str) {
         return !str.matches("\\d+");
     }
 

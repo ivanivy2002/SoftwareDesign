@@ -1,4 +1,4 @@
-package org.example.exit;
+package org.example.command.exit;
 
 import org.example.command.abstractCommand.VisitHistoryCommand;
 import org.example.command.history.HistoryTable;

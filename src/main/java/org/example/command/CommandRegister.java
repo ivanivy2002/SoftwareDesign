@@ -7,7 +7,7 @@ import org.example.command.history.*;
 import org.example.command.loadSave.*;
 import org.example.command.observe.*;
 import org.example.command.update.*;
-import org.example.exit.ExitCommand;
+import org.example.command.exit.ExitCommand;
 
 public class CommandRegister {
 

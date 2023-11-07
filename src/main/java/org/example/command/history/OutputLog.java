@@ -10,6 +10,7 @@ public class OutputLog {
     //    protected int sessionHeaderNum ;
     protected String sessionEnder;
 
-    protected LocalDateTime duration;
+    //    protected LocalDateTime duration;
+    protected String duration;
     protected String fileName;
 }

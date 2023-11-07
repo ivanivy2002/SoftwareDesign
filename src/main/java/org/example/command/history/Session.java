@@ -1,6 +1,5 @@
 package org.example.command.history;
 
-import org.example.Editor;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringTool;
 import org.example.utils.TimeTool;
@@ -14,32 +13,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Session {
-    protected final Editor editor;
+    //    protected final Editor editor;
+    protected String subdir;
+    //    protected String fileName;
     protected List<CommandLog> logs = new ArrayList<>();
     protected List<OutputLog> outputLogs = new ArrayList<>();
-    //    protected OutputLog o = new OutputLog();
-//    protected List<String> sessionHeader = new ArrayList<>();
-//    protected List<Integer> sessionHeaderNum = new ArrayList<>();
-//    protected List<String> sessionEnder = new ArrayList<>();
     protected LocalDateTime timestampStart;
     protected LocalDateTime timestampEnd;
-    //    protected List<LocalDateTime> duration = new ArrayList<>();
-//    protected List<String> fileName = new ArrayList<>();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm:ss");
     protected boolean saved = true;
 
-    public Session(Editor editor) {
-        this.editor = editor;
+    public Session(String subdir) {
+//        this.editor = editor;
+        this.subdir = subdir;
+        ConsoleTool.println("Subdir: " + subdir);
+//        this.fileName = fileName;
     }
 
     public void push(String commandString) {
         if (StringTool.getCommandName(commandString).equals("load")) {
             if (!saved) {
                 OutputLog o = outputLogs.get(outputLogs.size() - 1);
-                timestampEnd = LocalDateTime.now();
-//              outputLogs.add("session start at "+ formatter.format(timestampEnd));
-                o.duration = timestampEnd.minusSeconds(timestampStart.getSecond());
-                o.sessionEnder = editor.getSubdir() + o.fileName + "\t" + o.duration.getSecond() + " seconds";
+//                timestampEnd = LocalDateTime.now();
+//                o.duration = TimeTool.calculateTimeDifference(timestampStart, timestampEnd);
+//                o.sessionEnder = subdir + o.fileName + "\t" + o.duration;
+                updateEnd(o);
                 o.outputLog.add(o.sessionEnder);
                 saved = true;
             }
@@ -47,7 +45,7 @@ public class Session {
             timestampStart = LocalDateTime.now();
             o.sessionHeader = "session start at " + formatter.format(timestampStart);
             o.outputLog.add(o.sessionHeader);
-            o.fileName = editor.getFileString();
+            o.fileName = parseFileNameFromCommand(commandString);
             outputLogs.add(o);
             saved = false;
         }
@@ -55,9 +53,10 @@ public class Session {
         OutputLog o = outputLogs.get(outputLogs.size() - 1);
 //        o.sessionHeaderNum = logs.size()-1;
         o.outputLog.add(logs.get(logs.size() - 1).timestamp + " " + logs.get(logs.size() - 1).commandString);
-        timestampEnd = LocalDateTime.now();
-        o.duration = timestampEnd.minusSeconds(timestampStart.getSecond());
-        o.sessionEnder = editor.getSubdir() + o.fileName + "\t" + o.duration.getSecond() + " seconds";
+//        timestampEnd = LocalDateTime.now();
+//        o.duration = TimeTool.calculateTimeDifference(timestampStart, timestampEnd);
+//        o.sessionEnder = subdir + o.fileName + "\t" + o.duration;
+        updateEnd(o);
         if (StringTool.getCommandName(commandString).equals("save")) {
             o.outputLog.add(o.sessionEnder);
             saved = true;
@@ -74,6 +73,7 @@ public class Session {
         OutputLog o = outputLogs.get(outputLogs.size() - 1);
         System.out.println(o.sessionHeader);
         listLogToSessionHead();
+        updateEnd(o);
         System.out.println(o.sessionEnder);
     }
 
@@ -105,7 +105,14 @@ public class Session {
 
     public void saveLog() {
         for (OutputLog o : outputLogs) {
-            String fileName = "./log/" + parseFileName(o.fileName) + "_" + TimeTool.getTimeForFile() + ".txt";
+            if (o == outputLogs.get(outputLogs.size() - 1)) {
+//                timestampEnd = LocalDateTime.now();
+//                o.duration = TimeTool.calculateTimeDifference(timestampStart, timestampEnd);
+//                o.sessionEnder = subdir + o.fileName + "\t" + o.duration;
+                updateEnd(o);
+                o.outputLog.add(o.sessionEnder);
+            }
+            String fileName = "./log/" + parseFileNameFromExtension(o.fileName) + "_" + TimeTool.getTimeForFile() + ".txt";
             try (FileWriter fileWriter = new FileWriter(fileName); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
                 for (String line : o.outputLog) {
                     bufferedWriter.write(line);
@@ -117,11 +124,24 @@ public class Session {
         }
     }
 
-    public static String parseFileName(String fileName) {
+    public static String parseFileNameFromExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf(".");
         if (dotIndex != -1) {
             return fileName.substring(0, dotIndex);
         }
         return fileName;
     }
+
+    public static String parseFileNameFromCommand(String commandString) {
+        String[] args = commandString.split("\\s+", 2); // 使用空格作为分隔符切割命令字符串
+        return args[1];
+    }
+
+    public void updateEnd(OutputLog o) {
+        timestampEnd = LocalDateTime.now();
+        o.duration = TimeTool.calculateTimeDifference(timestampStart, timestampEnd);
+        o.sessionEnder = subdir + o.fileName + "\t" + o.duration;
+//        o.outputLog.add(o.sessionEnder);
+    }
+
 }

@@ -57,14 +57,12 @@ public class DeleteCommand extends VisitEditorCommand {
 
     public int execute(String[] args) {
         String[] lines = editor.getLines();
-        if (StringTool.isNaturalNumber(args[0])) {
+        if (StringTool.isNotNaturalNumber(args[0])) {
             //找文字
             ConsoleTool.println("Pairing Texts");
             List<Integer> matchingLineNums = new ArrayList<>();
             for (int i = 0; i < lines.length; i++) {
                 String trueLine = lines[i].split("\\s+", 2)[1];
-//                ConsoleTool.println("trueLine:　"+trueLine);
-//                ConsoleTool.println("args: "+StringTool.catString(args,0));
                 if (trueLine.trim().equals(StringTool.catString(args, 0).trim())) {
                     matchingLineNums.add(i);
                 }

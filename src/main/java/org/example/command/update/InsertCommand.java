@@ -13,36 +13,18 @@ public class InsertCommand extends VisitEditorCommand {
     public int execute(String[] newArgs) {
         ConsoleTool.println("Inserting...");
         int lineNum;
-        String[] lines = editor.getLines();
+//        String[] lines = editor.getLines();
         String lineContent;
         //TIPS: lineContent shd be including all rest args from Args[1] to the end
-        if(StringTool.isNaturalNumber(newArgs[0])){
-            ConsoleTool.println("Default insert to the end");
-            lineNum = lines.length+1;
+        if (StringTool.isNotNaturalNumber(newArgs[0])) {
+//            lineNum = lines.length+1;
             lineContent = StringTool.catString(newArgs,0);
+            return editor.insert(-1, lineContent);
         }
         else{
             lineNum = Integer.parseInt(newArgs[0]);
             lineContent = StringTool.catString(newArgs,1);
+            return editor.insert(lineNum - 1, lineContent);
         }
-        if(lineContent.split("\\s+", 2).length != 2){
-            ConsoleTool.println("ERR: lineContent without Marking Symbol");
-            return -1;
-        }
-//        ConsoleTool.println("lineContent: "+lineContent);
-//        ConsoleTool.println("lineNum: "+lineNum);
-//        ConsoleTool.println("lines.length: "+lines.length);
-        if(lineNum<1||lineNum>lines.length+1){
-            ConsoleTool.println("ERR: lineNum out of range");
-            return -1;
-        }
-        lineNum--;
-        //这是纵容的写法，插入嘛，无所谓，!已经删去
-//        lineNum =Math.max(0,Math.min(lineNum,lines.length));
-//        ConsoleTool.println("lineNum: "+lineNum);
-        lines = StringTool.insertLine(lines,lineNum,lineContent);
-        editor.setLines(lines);
-//        editor.insert(lineNum, lineContent);
-        return 0;
     }
 }

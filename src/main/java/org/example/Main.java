@@ -18,18 +18,17 @@ import org.example.command.history.HistoryTable;
 //}
 public class Main {
     public static void main(String[] args) {
-//        test1();
+        test1();
 //        test0();
-//        test2();
-//        test3();
+        test2();
+        test3();
         test4();
     }
 
     private static void test0() {
-        Editor editor = new Editor();
+        Editor editor = new Editor("./data/");
         HistoryTable historyTable = new HistoryTable(editor);
         CommandExecutor executor = new CommandExecutor(historyTable);
-        editor.setSubdir("./data/");
         //注册
         CommandRegister commandRegister = new CommandRegister();
         commandRegister.commandReg(executor, editor, historyTable);
@@ -47,16 +46,15 @@ public class Main {
         executor.executeCommand("dir-tree 四级标题");
 //        executor.executeCommand("insert ## end");
 //        executor.executeCommand("list");
-        client.clientRun(executor);
+//        client.clientRun(executor);
 //        executor.executeCommand("save");
 //        executor.executeCommand("unknown");
     }
 
     public static void test1() {
-        Editor editor = new Editor();
+        Editor editor = new Editor("./data/");
         HistoryTable historyTable = new HistoryTable(editor);
         CommandExecutor executor = new CommandExecutor(historyTable);
-        editor.setSubdir("./data/");
         //注册
         CommandRegister commandRegister = new CommandRegister();
         commandRegister.commandReg(executor, editor, historyTable);
@@ -79,10 +77,9 @@ public class Main {
     }
 
     public static void test2() {
-        Editor editor = new Editor();
+        Editor editor = new Editor("./data/");
         HistoryTable historyTable = new HistoryTable(editor);
         CommandExecutor executor = new CommandExecutor(historyTable);
-        editor.setSubdir("./data/");
         //注册
         CommandRegister commandRegister = new CommandRegister();
         commandRegister.commandReg(executor, editor, historyTable);
@@ -100,14 +97,13 @@ public class Main {
         executor.executeCommand("redo");
         executor.executeCommand("list-tree");
         executor.executeCommand("save");
-        client.clientRun(executor);
+//        client.clientRun(executor);
     }
 
     public static void test3() {
-        Editor editor = new Editor();
+        Editor editor = new Editor("./data/");
         HistoryTable historyTable = new HistoryTable(editor);
         CommandExecutor executor = new CommandExecutor(historyTable);
-        editor.setSubdir("./data/");
         //注册
         CommandRegister commandRegister = new CommandRegister();
         commandRegister.commandReg(executor, editor, historyTable);
@@ -129,16 +125,15 @@ public class Main {
         executor.executeCommand("list-tree");
         executor.executeCommand("save");
 
-        client.clientRun(executor);
+//        client.clientRun(executor);
 //        executor.executeCommand("list-tree");
 //        executor.executeCommand("save");
     }
 
     public static void test4() {
-        Editor editor = new Editor();
+        Editor editor = new Editor("./data/");
         HistoryTable historyTable = new HistoryTable(editor);
         CommandExecutor executor = new CommandExecutor(historyTable);
-        editor.setSubdir("./data/");
         //注册
         CommandRegister commandRegister = new CommandRegister();
         commandRegister.commandReg(executor, editor, historyTable);
