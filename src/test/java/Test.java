@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class Test {
 
-    @Test
-    public void testInsertCommand(){
-        ConsoleTool.println("test");
-    }
+//    @Test
+//    public void testInsertCommand() {
+//        ConsoleTool.println("test");
+//    }
 
     public static void main(String[] args) {
         ConsoleTool.println(StringTool.repeatString("Ass", 0));
