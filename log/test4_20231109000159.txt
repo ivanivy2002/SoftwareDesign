@@ -1,0 +1,4 @@
+session start at 20231109 00:01:56
+20231109 00:01:56 load test4.md
+20231109 00:01:56 list-tree 
+./data/test4.md	0小时 0分钟 3秒 239毫秒

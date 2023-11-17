@@ -1,4 +1,0 @@
-session start at 20231108 03:11:51
-20231108 03:11:51 load test3.md
-20231108 03:11:51 list-tree 
-./data/test3.md	0小时 0分钟 0秒 0毫秒

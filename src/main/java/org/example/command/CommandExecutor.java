@@ -28,11 +28,11 @@ public class CommandExecutor {
         ICommand command = commands.get(args[0]);
         if (command != null) {
             if (command.execute(newArgs) >= 0) {
-//                System.out.println("Command executed successfully.");
+//                ConsoleTool.println("Command executed successfully.");
                 historyTable.pushLog(commandString);
                 historyTable.push(commandString);
             }
-            //                System.out.println("Command executed failed.");
+            //                ConsoleTool.println("Command executed failed.");
         } else {
             ConsoleTool.println("Unknown command: " + commandString);
         }

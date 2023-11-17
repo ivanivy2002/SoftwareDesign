@@ -1,6 +1,0 @@
-session start at 20231108 03:11:51
-20231108 03:11:51 load test4.md
-20231108 03:11:51 list-tree 
-20231108 03:11:55 status all
-20231108 03:12:10 status current
-./data/test4.md	0小时 0分钟 31秒 577毫秒

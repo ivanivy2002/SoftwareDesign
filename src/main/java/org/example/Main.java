@@ -4,18 +4,6 @@ import org.example.client.Client;
 import org.example.command.*;
 import org.example.command.history.HistoryTable;
 
-//public class Main {
-//    public static void main(String[] args) {
-//        String filePath = "./data/test.md"; // 替换为你的文件路径
-//        String[] fileLines = FileReader.readFile(filePath);
-//
-//        System.out.println("File content:");
-//        for (String line : fileLines) {
-//            System.out.println(line);
-//        }
-//
-//    }
-//}
 public class Main {
     public static void main(String[] args) {
         test1();
@@ -86,7 +74,6 @@ public class Main {
         Client client = new Client();
         executor.executeCommand("reset test2.md");
 //        executor.executeCommand("list-tree");
-
         executor.executeCommand("load test2.md");
         executor.executeCommand("append-head # 旅行清单");
         executor.executeCommand("append-tail ## 亚洲");
@@ -124,7 +111,6 @@ public class Main {
         executor.executeCommand("redo");
         executor.executeCommand("list-tree");
         executor.executeCommand("save");
-
 //        client.clientRun(executor);
 //        executor.executeCommand("list-tree");
 //        executor.executeCommand("save");

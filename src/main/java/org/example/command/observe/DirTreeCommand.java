@@ -3,7 +3,6 @@ package org.example.command.observe;
 import org.example.Editor;
 import org.example.command.abstractCommand.VisitEditorCommand;
 import org.example.observer.TreeBuilder;
-import org.example.observer.TreeViewBuilder;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringTool;
 
@@ -18,7 +17,7 @@ public class DirTreeCommand extends VisitEditorCommand {
     @Override
     public int execute(String[] args) {
         ConsoleTool.println("DirTree...");
-        TreeViewBuilder.buildTree(editor.getLines());
+//        TreeViewBuilder.buildTree(editor.getLines());
         String[] lines = editor.getLines();
         List<Integer> matchingLineNums = new ArrayList<>();
         if (args.length == 0) {

@@ -11,8 +11,8 @@ public class Client {
             System.out.print("$ ");
             String input = scanner.nextLine();
             executor.executeCommand(input);
-            if (input.equalsIgnoreCase("exit")) {
-                System.out.println("Exiting...");
+            if (input.equalsIgnoreCase("!exit")) {
+                System.out.println("Force Exiting...");
                 break;
             }
         }

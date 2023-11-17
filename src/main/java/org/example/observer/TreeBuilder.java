@@ -3,11 +3,9 @@ package org.example.observer;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringTool;
 
-import java.util.List;
-
-import static org.example.observer.TreeViewBuilder.LEAF_VALUE;
-
 public class TreeBuilder {
+
+    static final int LEAF_VALUE = 99;
 
     public static String[] tree;
     public static int[] level;
@@ -24,12 +22,6 @@ public class TreeBuilder {
         reformatTree(lines, root);
         reformatTreeVertical();
     }
-//    public static void main(String[] args) {
-//        int[] level = {1, 2, 1, LEAF_VALUE,1, 2,3,LEAF_VALUE,LEAF_VALUE,3,2,3};
-//        Node root = buildTree(level);
-//        printTree(root);
-//        System.out.println();
-//    }
 
     public static int[] parseLevel(String[] lines) {
         int[] levelLine = new int[lines.length];
