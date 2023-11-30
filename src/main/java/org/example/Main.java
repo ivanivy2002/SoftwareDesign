@@ -3,13 +3,14 @@ package org.example;
 import org.example.client.Client;
 import org.example.command.*;
 import org.example.command.history.HistoryTable;
+import org.example.utils.FileAccessor;
 import org.example.workspace.WorkspaceManager;
 
 public class Main {
     public static void main(String[] args) {
-        test1();
+//        test1();
 //        test0();
-//        test2();
+        test2();
 //        test3();
 //        test4();
 //        testHakuro();
@@ -55,29 +56,28 @@ public class Main {
 
     public static void test2() {
         Client client = new Client();
-        WorkspaceManager workspaceManager = new WorkspaceManager();
-//        client.initWorkspaceManager();
-        workspaceManager.execute("reset test2.md");
-//        workspaceManager.execute("list-tree");
-        workspaceManager.execute("load test2.md");
-        workspaceManager.execute("append-head # 旅行清单");
-        workspaceManager.execute("append-tail ## 亚洲");
-        workspaceManager.execute("append-tail 1. 中国");
-        workspaceManager.execute("append-tail 2. 日本");
-        workspaceManager.execute("delete 亚洲");
-        workspaceManager.execute("undo");
-        workspaceManager.execute("redo");
-        workspaceManager.execute("list-tree");
-        workspaceManager.execute("save");
-//        client.clientRun(executor);
+        FileAccessor.clearFile("./data/test2.md");
+        client.execute("save");
+        client.execute("load test2.md");
+        client.execute("append-head # 旅行清单");
+        client.execute("append-tail ## 亚洲");
+        client.execute("append-tail 1. 中国");
+        client.execute("append-tail 2. 日本");
+        client.execute("delete 亚洲");
+        client.execute("undo");
+        client.execute("redo");
+        client.execute("list-tree");
+        client.execute("save");
+//        workspaceManager.execute("list");
+        client.clientRun();
     }
 
     public static void test3() {
         Client client = new Client();
         WorkspaceManager workspaceManager = new WorkspaceManager();
 //        client.initWorkspaceManager();
-        workspaceManager.execute("reset test3.md");
-
+//        workspaceManager.execute("reset test3.md");
+        FileAccessor.clearFile("./data/test2.md");
         workspaceManager.execute("load test3.md");
         workspaceManager.execute("append-head # 书籍推荐");
         workspaceManager.execute("append-tail * 《深入理解计算机系统》");
@@ -99,22 +99,21 @@ public class Main {
 
     public static void test4() {
         Client client = new Client();
-        WorkspaceManager workspaceManager = new WorkspaceManager();
 //        client.initWorkspaceManager();
 //        workspaceManager.execute("reset test3.md");
-        workspaceManager.execute("reset test4.md");
-
-        workspaceManager.execute("load test4.md");
-        workspaceManager.execute("append-head # 旅行清单");
-        workspaceManager.execute("append-tail ## 亚洲");
-        workspaceManager.execute("save");
-        workspaceManager.execute("append-tail 1. 中国");
-        workspaceManager.execute("append-tail 2. 日本");
-        workspaceManager.execute("append-tail ## 欧洲");
-        workspaceManager.execute("load test3.md");
-        workspaceManager.execute("list-tree");
-        workspaceManager.execute("load test4.md");
-        workspaceManager.execute("list-tree");
+//        workspaceManager.execute("reset test4.md");
+        FileAccessor.clearFile("./data/test2.md");
+        client.execute("load test4.md");
+        client.execute("append-head # 旅行清单");
+        client.execute("append-tail ## 亚洲");
+        client.execute("save");
+        client.execute("append-tail 1. 中国");
+        client.execute("append-tail 2. 日本");
+        client.execute("append-tail ## 欧洲");
+        client.execute("load test3.md");
+        client.execute("list-tree");
+        client.execute("load test4.md");
+        client.execute("list-tree");
         client.clientRun();
 //        workspaceManager.execute("list-tree");
 //        workspaceManager.execute("save");

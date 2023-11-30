@@ -17,10 +17,10 @@ public class WorkspaceManager {
     protected Workspace cur;
 
     public WorkspaceManager() {
-        String tmpName = "init";
-        workspaceMap.put(tmpName, new Workspace(tmpName));
-        cur = workspaceMap.get(tmpName);
-        this.updateCur(tmpName);
+//        String tmpName = "init";
+//        workspaceMap.put(tmpName, new Workspace(tmpName));
+//        cur = workspaceMap.get(tmpName);
+//        this.updateCur(tmpName);
     }
 
     public void updateCur(String name) {
@@ -35,15 +35,20 @@ public class WorkspaceManager {
 //        解决load命令
         if (args[0].equals("load")) {
             String tmpName = StringTool.parseFileNameFromExtension(args[1]);
-            if (workspaceMap.get(tmpName) != null) {
+            if (workspaceMap.get(tmpName) == null) {
                 workspaceMap.put(tmpName, new Workspace(tmpName));
                 this.updateCur(tmpName);
             } else {
+                // 重复加载的处理
                 ConsoleTool.println("Already loaded");
                 this.updateCur(tmpName);
             }
         }
 //        其他命令或者load的后部分(加载文件)
+        if (cur == null) {
+            ConsoleTool.printERR("WorkspaceManager.execute", "Please create a workspace first");
+            return -1;
+        }
         if (cur.executor.executeCommand(args) == 0) {
             if (cur.historyTable.pushLog(commandString) != 0) {
                 ConsoleTool.printERR("CommandExecutor.executeCommand", "No session started");

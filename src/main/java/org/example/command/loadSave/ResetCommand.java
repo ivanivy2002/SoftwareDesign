@@ -3,7 +3,6 @@ package org.example.command.loadSave;
 import org.example.Editor;
 import org.example.command.abstractCommand.VisitEditorCommand;
 import org.example.utils.ConsoleTool;
-import org.example.utils.FileReader;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
