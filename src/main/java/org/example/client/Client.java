@@ -1,16 +1,18 @@
 package org.example.client;
 
-import org.example.command.CommandExecutor;
+import org.example.workspace.WorkspaceManager;
 
 import java.util.Scanner;
 
 public class Client {
-    public void clientRun(CommandExecutor executor) {
+    WorkspaceManager workspaceManager = new WorkspaceManager();
+
+    public void clientRun() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("$ ");
             String input = scanner.nextLine();
-            executor.executeCommand(input);
+            workspaceManager.execute(input);
             if (input.equalsIgnoreCase("!exit")) {
                 System.out.println("Force Exiting...");
                 break;

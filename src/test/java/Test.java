@@ -1,51 +1,39 @@
+import org.example.Editor;
+import org.example.client.Client;
+import org.example.command.CommandExecutor;
+import org.example.command.CommandRegister;
+import org.example.command.history.HistoryTable;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringTool;
 import org.example.utils.TimeTool;
-
+import org.example.client.Client;
+import org.example.command.*;
+import org.example.command.history.HistoryTable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Scanner;
 
 public class Test {
-
-//    @Test
-//    public void testInsertCommand() {
-//        ConsoleTool.println("test");
+//    @org.junit.Test
+//    public void test0() {
+//        Editor editor = new Editor("./data/");
+//        HistoryTable historyTable = new HistoryTable(editor);
+//        CommandExecutor executor = new CommandExecutor(historyTable);
+//        //注册
+//        CommandRegister commandRegister = new CommandRegister();
+//        commandRegister.commandReg(executor, editor, historyTable);
+//        Client client = new Client();
+//        executor.executeCommand("load sim.md");
+//        executor.executeCommand("save");
+//        executor.executeCommand("list");
+//        executor.executeCommand("append-head # head");
+//        executor.executeCommand("append-tail # tail");
+//        executor.executeCommand("insert 3 ## TO BE INSERTED");
+//        executor.executeCommand("delete TO BE DELETED");
+//        executor.executeCommand("list");
+//        executor.executeCommand("list-tree");
+//        executor.executeCommand("dir-tree 四级标题");
+//
 //    }
 
-    public static void main(String[] args) {
-        ConsoleTool.println(StringTool.repeatString("Ass", 0));
-        ConsoleTool.println(TimeTool.getCurrentTime());
-        String c = "aaaabbbbcccc";
-        ConsoleTool.println(String.valueOf(c.indexOf("bbbb")));
-        ConsoleTool.println(String.valueOf(c.indexOf("dd")));
-
-
-        ConsoleTool.println(StringTool.replaceStringAt(c, c.indexOf("bbbb"), "re"));
-
-//        String regex = "^(?<=\\#{0,}|\\*{0,}|\\d{0,}\\.)\\S.*";
-//        String regex ="(?<![#*\\d.])[#*]*(?=\\S)";
-//        String regex ="(?<=[#*])[#*]*\\S.*";
-//        String regex ="(?![#*])(?!\\d+\\.)[#*]*\\S.*";
-//        Pattern pattern = Pattern.compile(regex);
-//
-//        [#*]+|\\d+\\.
-//
-//        while(true){
-//            System.out.print("$ ");
-//            input = scanner.nextLine();
-//            if(input.equals("exit")){
-//                break;
-//            }
-//            Matcher matcher = pattern.matcher(input.replaceAll("\s",""));
-//            if(matcher.find()){
-//                ConsoleTool.println("find");
-//                ConsoleTool.println("group(0): "+matcher.group(0));
-////                ConsoleTool.println("group(1): "+matcher.group(1));
-//            }
-//            else{
-//                ConsoleTool.println("not find");
-//            }
-//        }
-    }
 }

@@ -1,40 +1,39 @@
 package org.example;
 
+import lombok.Getter;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringTool;
 
+@Getter
 public class Editor {
     public String[] lines;
     public  String subdir;
 
-    Editor(String subdir) {
+    public Editor(String subdir) {
         this.subdir = subdir;
+//        if(subdir.isEmpty()){
+//            subdir= "./data/";
+//        }
     }
+
+    //        System.out.println(fileString);
     public String fileString;
-    public String[] getLines() {
-        return lines;
-    }
     public void setLines(String[] lines) {
         this.lines = lines;
     }
-    public String getSubdir() {
-        return subdir;
-    }
+
     public void setSubdir(String subdir) {
         this.subdir = subdir;
     }
     public void printLines() {
-//        for (int i=0;i< lines.length;i++) {
-//            System.out.println("[" + (i + 1) + "] " + lines[i]);
-//        }
+        if (lines == null) {
+            ConsoleTool.println("ERR: lines is null");
+            return;
+        }
         ConsoleTool.prints(lines);
     }
     public void setFileString(String fileString) {
         this.fileString = fileString;
-    }
-    public String getFileString() {
-//        System.out.println(fileString);
-        return fileString;
     }
 
     public int insert(int lineNum, String lineContent) {

@@ -1,5 +1,6 @@
 package org.example.command.history;
 
+import lombok.Getter;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringTool;
 import org.example.utils.TimeTool;
@@ -16,6 +17,7 @@ public class Session {
     //    protected final Editor editor;
     protected String subdir;
     //    protected String fileName;
+    @Getter
     protected List<CommandLog> logs = new ArrayList<>();
     protected List<OutputLog> outputLogs = new ArrayList<>();
     protected LocalDateTime timestampStart;
@@ -30,7 +32,7 @@ public class Session {
 //        this.fileName = fileName;
     }
 
-    public void push(String commandString) {
+    public int push(String commandString) {
         if (StringTool.getCommandName(commandString).equals("load")) {
             if (!saved) {
                 OutputLog o = outputLogs.get(outputLogs.size() - 1);
@@ -45,11 +47,15 @@ public class Session {
             timestampStart = LocalDateTime.now();
             o.sessionHeader = "session start at " + formatter.format(timestampStart);
             o.outputLog.add(o.sessionHeader);
-            o.fileName = parseFileNameFromCommand(commandString);
+            o.fileName = StringTool.parseFileNameFromCommand(commandString);
             outputLogs.add(o);
             saved = false;
         }
         logs.add(new CommandLog(TimeTool.getCurrentTime(), commandString));
+        if (outputLogs.isEmpty()) {
+            ConsoleTool.println("ERR:[Session.push] No session started");
+            return -1;
+        }
         OutputLog o = outputLogs.get(outputLogs.size() - 1);
 //        o.sessionHeaderNum = logs.size()-1;
         o.outputLog.add(logs.get(logs.size() - 1).timestamp + " " + logs.get(logs.size() - 1).commandString);
@@ -61,12 +67,9 @@ public class Session {
             o.outputLog.add(o.sessionEnder);
             saved = true;
         }
+        return 0;
     }
 
-
-    public List<CommandLog> getLogs() {
-        return logs;
-    }
 
     public void printStatus() {
         ConsoleTool.println("Current: ");
@@ -112,7 +115,7 @@ public class Session {
                 updateEnd(o);
                 o.outputLog.add(o.sessionEnder);
             }
-            String fileName = "./log/" + parseFileNameFromExtension(o.fileName) + "_" + TimeTool.getTimeForFile() + ".txt";
+            String fileName = "./log/" + StringTool.parseFileNameFromExtension(o.fileName) + "_" + TimeTool.getTimeForFile() + ".txt";
             try (FileWriter fileWriter = new FileWriter(fileName); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
                 for (String line : o.outputLog) {
                     bufferedWriter.write(line);
@@ -124,18 +127,7 @@ public class Session {
         }
     }
 
-    public static String parseFileNameFromExtension(String fileName) {
-        int dotIndex = fileName.lastIndexOf(".");
-        if (dotIndex != -1) {
-            return fileName.substring(0, dotIndex);
-        }
-        return fileName;
-    }
 
-    public static String parseFileNameFromCommand(String commandString) {
-        String[] args = commandString.split("\\s+", 2); // 使用空格作为分隔符切割命令字符串
-        return args[1];
-    }
 
     public void updateEnd(OutputLog o) {
         timestampEnd = LocalDateTime.now();

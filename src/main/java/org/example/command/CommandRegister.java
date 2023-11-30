@@ -6,6 +6,8 @@ import org.example.command.debug.*;
 import org.example.command.history.*;
 import org.example.command.loadSave.*;
 import org.example.command.observe.*;
+import org.example.command.trivial.HakuroCommand;
+import org.example.command.trivial.HelpCommand;
 import org.example.command.update.*;
 import org.example.command.exit.ExitCommand;
 
@@ -34,5 +36,9 @@ public class CommandRegister {
         executor.registerCommand("c", new CheckCommand(historyTable));
         //Exit
         executor.registerCommand("exit", new ExitCommand(historyTable));
+        //Fun
+        executor.registerCommand("hakuro", new HakuroCommand(historyTable));
+        //Help
+        executor.registerCommand("help", new HelpCommand(historyTable));
     }
 }

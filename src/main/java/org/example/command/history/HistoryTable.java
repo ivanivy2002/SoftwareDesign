@@ -32,13 +32,6 @@ public class HistoryTable {
 //    private int index = 0;
     public void push(String commandString) {
         if (StringSet.EssenceSet.contains(StringTool.getCommandName(commandString))) {
-//    !(name.equals("list") || name.equals("list-tree") || name.equals("dir-tree") ||
-//                name.equals("history") || name.equals("redo") || name.equals("undo")  ||
-//                name.equals("exit") ||
-//                name.equals("h") || name.equals("ls")
-//            !name.matches("(?i:list|list-tree|dir-tree|history|redo|undo|exit)")
-//            commandHistories.add(new CommandHistory(TimeTool.getCurrentTime(), commandString));
-//            historyMap.put(commandString, editor.getLines());
             historyMap.push(new HistoryMap(commandString, editor.getLines()));
             redoMap.clear();
 //            ConsoleTool.println("pushed");
@@ -46,10 +39,14 @@ public class HistoryTable {
         }
     }
 
-    public void pushLog(String commandString) {
+    public int pushLog(String commandString) {
         if (!StringSet.DebugSet.contains(StringTool.getCommandName(commandString))) {
-            session.push(commandString);
+            if (session.push(commandString) != 0) {
+                ConsoleTool.println("ERR:[History.pushLog] No session started");
+                return -1;
+            }
         }
+        return 0;
     }
 
     public String lastKey(LinkedHashMap<String, String[]> map) {

@@ -3,143 +3,130 @@ package org.example;
 import org.example.client.Client;
 import org.example.command.*;
 import org.example.command.history.HistoryTable;
+import org.example.workspace.WorkspaceManager;
 
 public class Main {
     public static void main(String[] args) {
         test1();
 //        test0();
-        test2();
-        test3();
-        test4();
+//        test2();
+//        test3();
+//        test4();
+//        testHakuro();
     }
 
     private static void test0() {
-        Editor editor = new Editor("./data/");
-        HistoryTable historyTable = new HistoryTable(editor);
-        CommandExecutor executor = new CommandExecutor(historyTable);
-        //注册
-        CommandRegister commandRegister = new CommandRegister();
-        commandRegister.commandReg(executor, editor, historyTable);
         Client client = new Client();
-        executor.executeCommand("load sim.md");
-        executor.executeCommand("save");
-        executor.executeCommand("list");
-        executor.executeCommand("append-head # head");
-        executor.executeCommand("append-tail # tail");
-//        executor.executeCommand("list");
-        executor.executeCommand("insert 3 ## TO BE INSERTED");
-        executor.executeCommand("delete TO BE DELETED");
-        executor.executeCommand("list");
-        executor.executeCommand("list-tree");
-        executor.executeCommand("dir-tree 四级标题");
-//        executor.executeCommand("insert ## end");
-//        executor.executeCommand("list");
-//        client.clientRun(executor);
-//        executor.executeCommand("save");
-//        executor.executeCommand("unknown");
+        WorkspaceManager workspaceManager = new WorkspaceManager();
+        workspaceManager.execute("load sim.md");
+        workspaceManager.execute("save");
+        workspaceManager.execute("list");
+        workspaceManager.execute("append-head # head");
+        workspaceManager.execute("append-tail # tail");
+//        workspaceManager.execute("list");
+        workspaceManager.execute("insert 3 ## TO BE INSERTED");
+        workspaceManager.execute("delete TO BE DELETED");
+        workspaceManager.execute("list");
+        workspaceManager.execute("list-tree");
+        workspaceManager.execute("dir-tree 四级标题");
+
     }
 
     public static void test1() {
-        Editor editor = new Editor("./data/");
-        HistoryTable historyTable = new HistoryTable(editor);
-        CommandExecutor executor = new CommandExecutor(historyTable);
-        //注册
-        CommandRegister commandRegister = new CommandRegister();
-        commandRegister.commandReg(executor, editor, historyTable);
         Client client = new Client();
-        executor.executeCommand("load test1.md");
-        executor.executeCommand("insert ## 程序设计");
-        executor.executeCommand("append-head # 我的资源");
-        executor.executeCommand("append-tail ### 软件设计");
-        executor.executeCommand("append-tail #### 设计模式");
-        executor.executeCommand("append-tail 1. 观察者模式");
-        executor.executeCommand("append-tail 3. 单例模式");
-        executor.executeCommand("insert 6 2. 策略模式");
-        executor.executeCommand("delete 单例模式");
-        executor.executeCommand("append-tail 3. 组合模式");
-        executor.executeCommand("list-tree");
-        executor.executeCommand("append-tail ## 工具箱");
-        executor.executeCommand("append-tail ### Adobe");
-        executor.executeCommand("list-tree");
-        executor.executeCommand("save");
+        WorkspaceManager workspaceManager = new WorkspaceManager();
+//        client.initWorkspaceManager();
+        workspaceManager.execute("load test1.md");
+        workspaceManager.execute("insert ## 程序设计");
+        workspaceManager.execute("append-head # 我的资源");
+        workspaceManager.execute("append-tail ### 软件设计");
+        workspaceManager.execute("append-tail #### 设计模式");
+        workspaceManager.execute("append-tail 1. 观察者模式");
+        workspaceManager.execute("append-tail 3. 单例模式");
+        workspaceManager.execute("insert 6 2. 策略模式");
+        workspaceManager.execute("delete 单例模式");
+        workspaceManager.execute("append-tail 3. 组合模式");
+        workspaceManager.execute("list-tree");
+        workspaceManager.execute("append-tail ## 工具箱");
+        workspaceManager.execute("append-tail ### Adobe");
+        workspaceManager.execute("list-tree");
+        workspaceManager.execute("save");
     }
 
     public static void test2() {
-        Editor editor = new Editor("./data/");
-        HistoryTable historyTable = new HistoryTable(editor);
-        CommandExecutor executor = new CommandExecutor(historyTable);
-        //注册
-        CommandRegister commandRegister = new CommandRegister();
-        commandRegister.commandReg(executor, editor, historyTable);
         Client client = new Client();
-        executor.executeCommand("reset test2.md");
-//        executor.executeCommand("list-tree");
-        executor.executeCommand("load test2.md");
-        executor.executeCommand("append-head # 旅行清单");
-        executor.executeCommand("append-tail ## 亚洲");
-        executor.executeCommand("append-tail 1. 中国");
-        executor.executeCommand("append-tail 2. 日本");
-        executor.executeCommand("delete 亚洲");
-        executor.executeCommand("undo");
-        executor.executeCommand("redo");
-        executor.executeCommand("list-tree");
-        executor.executeCommand("save");
+        WorkspaceManager workspaceManager = new WorkspaceManager();
+//        client.initWorkspaceManager();
+        workspaceManager.execute("reset test2.md");
+//        workspaceManager.execute("list-tree");
+        workspaceManager.execute("load test2.md");
+        workspaceManager.execute("append-head # 旅行清单");
+        workspaceManager.execute("append-tail ## 亚洲");
+        workspaceManager.execute("append-tail 1. 中国");
+        workspaceManager.execute("append-tail 2. 日本");
+        workspaceManager.execute("delete 亚洲");
+        workspaceManager.execute("undo");
+        workspaceManager.execute("redo");
+        workspaceManager.execute("list-tree");
+        workspaceManager.execute("save");
 //        client.clientRun(executor);
     }
 
     public static void test3() {
-        Editor editor = new Editor("./data/");
-        HistoryTable historyTable = new HistoryTable(editor);
-        CommandExecutor executor = new CommandExecutor(historyTable);
-        //注册
-        CommandRegister commandRegister = new CommandRegister();
-        commandRegister.commandReg(executor, editor, historyTable);
         Client client = new Client();
-        executor.executeCommand("reset test3.md");
+        WorkspaceManager workspaceManager = new WorkspaceManager();
+//        client.initWorkspaceManager();
+        workspaceManager.execute("reset test3.md");
 
-        executor.executeCommand("load test3.md");
-        executor.executeCommand("append-head # 书籍推荐");
-        executor.executeCommand("append-tail * 《深入理解计算机系统》");
-        executor.executeCommand("undo");
-        executor.executeCommand("append-tail ## 编程");
-        executor.executeCommand("append-tail * 《设计模式的艺术》");
-        executor.executeCommand("redo");
-        executor.executeCommand("list-tree");
-        executor.executeCommand("append-tail * 《云原生：运用容器、函数计算和数据构建下一代应用》");
-        executor.executeCommand("append-tail * 《深入理解Java虚拟机》");
-        executor.executeCommand("undo");
-        executor.executeCommand("redo");
-        executor.executeCommand("list-tree");
-        executor.executeCommand("save");
+        workspaceManager.execute("load test3.md");
+        workspaceManager.execute("append-head # 书籍推荐");
+        workspaceManager.execute("append-tail * 《深入理解计算机系统》");
+        workspaceManager.execute("undo");
+        workspaceManager.execute("append-tail ## 编程");
+        workspaceManager.execute("append-tail * 《设计模式的艺术》");
+        workspaceManager.execute("redo");
+        workspaceManager.execute("list-tree");
+        workspaceManager.execute("append-tail * 《云原生：运用容器、函数计算和数据构建下一代应用》");
+        workspaceManager.execute("append-tail * 《深入理解Java虚拟机》");
+        workspaceManager.execute("undo");
+        workspaceManager.execute("redo");
+        workspaceManager.execute("list-tree");
+        workspaceManager.execute("save");
 //        client.clientRun(executor);
-//        executor.executeCommand("list-tree");
-//        executor.executeCommand("save");
+//        workspaceManager.execute("list-tree");
+//        workspaceManager.execute("save");
     }
 
     public static void test4() {
-        Editor editor = new Editor("./data/");
-        HistoryTable historyTable = new HistoryTable(editor);
-        CommandExecutor executor = new CommandExecutor(historyTable);
-        //注册
-        CommandRegister commandRegister = new CommandRegister();
-        commandRegister.commandReg(executor, editor, historyTable);
         Client client = new Client();
-//        executor.executeCommand("reset test3.md");
-        executor.executeCommand("reset test4.md");
+        WorkspaceManager workspaceManager = new WorkspaceManager();
+//        client.initWorkspaceManager();
+//        workspaceManager.execute("reset test3.md");
+        workspaceManager.execute("reset test4.md");
 
-        executor.executeCommand("load test4.md");
-        executor.executeCommand("append-head # 旅行清单");
-        executor.executeCommand("append-tail ## 亚洲");
-        executor.executeCommand("save");
-        executor.executeCommand("append-tail 1. 中国");
-        executor.executeCommand("append-tail 2. 日本");
-        executor.executeCommand("append-tail ## 欧洲");
-        executor.executeCommand("load test3.md");
-        executor.executeCommand("list-tree");
-        executor.executeCommand("load test4.md");
-        executor.executeCommand("list-tree");
-        client.clientRun(executor);
-//        executor.executeCommand("list-tree");
-//        executor.executeCommand("save");
+        workspaceManager.execute("load test4.md");
+        workspaceManager.execute("append-head # 旅行清单");
+        workspaceManager.execute("append-tail ## 亚洲");
+        workspaceManager.execute("save");
+        workspaceManager.execute("append-tail 1. 中国");
+        workspaceManager.execute("append-tail 2. 日本");
+        workspaceManager.execute("append-tail ## 欧洲");
+        workspaceManager.execute("load test3.md");
+        workspaceManager.execute("list-tree");
+        workspaceManager.execute("load test4.md");
+        workspaceManager.execute("list-tree");
+        client.clientRun();
+//        workspaceManager.execute("list-tree");
+//        workspaceManager.execute("save");
     }
+
+    public static void testHakuro() {
+        Client client = new Client();
+        WorkspaceManager workspaceManager = new WorkspaceManager();
+//        client.initWorkspaceManager();
+        workspaceManager.execute("hakuro");
+        workspaceManager.execute("help");
+        client.clientRun();
+    }
+
 }

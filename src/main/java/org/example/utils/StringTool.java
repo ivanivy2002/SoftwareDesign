@@ -96,16 +96,17 @@ public static boolean isNotNaturalNumber(String str) {
         String format = "%0" + leadingZeros + "d";
         return String.format(format, lineNumber);
     }
-// editor.setLines(lines);
-//    public String extractText(String line) {
-//        String regex = "(?<![#*.])\\b(.*)";
-//        Pattern pattern = Pattern.compile(regex);
-//        Matcher matcher = pattern.matcher(line);
-//
-//        if (matcher.find()) {
-//            return matcher.group(1);
-//        }
-//
-//        return "";
-//    }
+
+    public static String parseFileNameFromExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex != -1) {
+            return fileName.substring(0, dotIndex);
+        }
+        return fileName;
+    }
+
+    public static String parseFileNameFromCommand(String commandString) {
+        String[] args = commandString.split("\\s+", 2); // 使用空格作为分隔符切割命令字符串
+        return args[1];
+    }
 }
