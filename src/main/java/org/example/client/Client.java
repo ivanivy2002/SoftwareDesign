@@ -1,9 +1,11 @@
 package org.example.client;
 
+import lombok.Getter;
 import org.example.workspace.WorkspaceManager;
 
 import java.util.Scanner;
 
+@Getter
 public class Client {
     WorkspaceManager workspaceManager = new WorkspaceManager();
 

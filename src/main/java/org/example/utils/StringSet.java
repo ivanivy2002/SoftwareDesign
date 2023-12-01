@@ -17,6 +17,16 @@ public class StringSet {
         EssenceSet.add("save");
     }
 
+    public static Set<String> UnsaveSet;
+
+    static {
+        UnsaveSet = new HashSet<>();
+        UnsaveSet.add("append-head");
+        UnsaveSet.add("append-tail");
+        UnsaveSet.add("insert");
+        UnsaveSet.add("delete");
+    }
+
     public static Set<String> DebugSet;
 
     static {

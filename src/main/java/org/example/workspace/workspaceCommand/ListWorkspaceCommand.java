@@ -1,17 +1,16 @@
-package org.example.command.observe;
+package org.example.workspace.workspaceCommand;
 
 import org.example.Editor;
 import org.example.command.abstractCommand.VisitEditorCommand;
-import org.example.utils.ConsoleTool;
 
-public class ListCommand extends VisitEditorCommand {
+public class ListWorkspaceCommand extends VisitEditorCommand {
 
-    public ListCommand(Editor editor) {
+    public ListWorkspaceCommand(Editor editor) {
         super(editor);
     }
+
     @Override
     public int execute(String[] newArgs) {
-        ConsoleTool.println("Listing...");
         editor.printLines();
         return 0;
     }

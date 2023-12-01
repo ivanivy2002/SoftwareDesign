@@ -1,5 +1,6 @@
 package org.example.command.history;
 
+import lombok.Getter;
 import org.example.Editor;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringSet;
@@ -8,6 +9,7 @@ import org.example.utils.StringTool;
 import java.io.IOException;
 import java.util.*;
 
+@Getter
 public class HistoryTable {
 
     protected final Editor editor;
@@ -18,6 +20,8 @@ public class HistoryTable {
 
     //    protected List<CommandLog> logs = new ArrayList<>();
     protected Session session;
+
+    protected int unsaved;
     public HistoryTable(Editor editor) {
         this.editor = editor;
 //        this.historyMap = new LinkedHashMap<>();
@@ -27,6 +31,7 @@ public class HistoryTable {
 //        this.historyMap.put("init", editor.getLines());
         this.historyMap.push(new HistoryMap("init", editor.getLines()));
         session = new Session(editor.getSubdir());
+        unsaved = 0;
     }
     //    private final CommandHistory[] commandHistories;
 //    private int index = 0;
@@ -34,8 +39,9 @@ public class HistoryTable {
         if (StringSet.EssenceSet.contains(StringTool.getCommandName(commandString))) {
             historyMap.push(new HistoryMap(commandString, editor.getLines()));
             redoMap.clear();
-//            ConsoleTool.println("pushed");
-//            index = commandHistories.size();
+        }
+        if (StringSet.UnsaveSet.contains(StringTool.getCommandName(commandString))) {
+            unsaved++;
         }
     }
 
@@ -57,8 +63,7 @@ public class HistoryTable {
         return lastKey;
     }
 
-    public boolean checkLastCommand() {
-//        String lastKey = this.lastKey(historyMap);
+    public boolean checkLastCommand() { // check if last command is skip-able
         String lastKey = historyMap.peek().getRawCommand();
         String commandName = StringTool.getCommandName(lastKey);
         return !commandName.equals("save") && !commandName.equals("load") && !commandName.equals("init");
@@ -66,13 +71,9 @@ public class HistoryTable {
 
     public void revert() {
         //revert to last status
-//        String lastKey = this.lastKey(historyMap);
-//        redoMap.put(lastKey, historyMap.get(lastKey));
-//        historyMap.remove(lastKey);
         redoMap.push(historyMap.pop());
-//        lastKey = this.lastKey(historyMap);
-//        editor.setLines(historyMap.get(lastKey));
         editor.setLines(historyMap.peek().getLines());
+        unsaved--;
     }
 
     public int recover() {
@@ -80,55 +81,25 @@ public class HistoryTable {
         if (redoMap.isEmpty()) {
             return -1;
         }
-//        String lastKey = this.lastKey(redoMap);
-//        historyMap.put(lastKey, redoMap.get(lastKey));
-//        redoMap.remove(lastKey);
         historyMap.push(redoMap.pop());
-//        if (redoMap.isEmpty()) {
-////            lastKey = this.lastKey(historyMap);
-////            editor.setLines(historyMap.get(lastKey));
-//            editor.setLines(historyMap.peek().getLines());
-//        } else {
-////            lastKey = this.lastKey(redoMap);
-////            editor.setLines(redoMap.get(lastKey));
-//            editor.setLines(redoMap.peek().getLines());
-//        }
         editor.setLines(historyMap.peek().getLines());
+        unsaved++;
         return 0;
     }
 
     public void list() {
         ConsoleTool.println("C List");
         int i = 0;
-//        for (Map.Entry<String, String[]> entry : historyMap.entrySet()) {
-//            System.out.println("[C" + (i++) + "] " + entry.getKey());
-//        }
         for (HistoryMap history : historyMap) {
             System.out.println("[C" + (i++) + "] " + history.getRawCommand());
         }
         i = 0;
         ConsoleTool.println("R List");
-//        for (Map.Entry<String, String[]> entry : redoMap.entrySet()) {
-//            System.out.println("[R" + (i++) + "] " + entry.getKey());
-//        }
         for (HistoryMap history : redoMap) {
             System.out.println("[R" + (i++) + "] " + history.getRawCommand());
         }
     }
 
-    //    public static <K, V> V getElementAtIndex(LinkedHashMap<K, V> map, int index) {
-//        Iterator<Map.Entry<K, V>> iterator = map.entrySet().iterator();
-//        int count = 0;
-//        while (iterator.hasNext()) {
-//            Map.Entry<K, V> entry = iterator.next();
-//            if (count == index) {
-//                return entry.getValue();
-//            }
-//            count++;
-//        }
-//        throw new IndexOutOfBoundsException("Index out of range: " + index);
-//    }
-//
     public static HistoryMap getElementAtIndex(Stack<HistoryMap> map, int index) {
         return map.get(index);
     }
@@ -172,7 +143,9 @@ public class HistoryTable {
     public void saveLog() {
         session.saveLog();
     }
-//    public boolean isEmpty() {
-//        return index == 0;
-//    }
+
+    public boolean checkUnsaved() {
+        return unsaved > 0 && checkLastCommand();
+    }
+
 }

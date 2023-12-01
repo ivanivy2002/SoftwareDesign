@@ -2,14 +2,13 @@ package org.example.command;
 
 
 import org.example.Editor;
-import org.example.command.debug.*;
+import org.example.command.debug.CheckCommand;
+import org.example.command.exit.ExitCommand;
 import org.example.command.history.*;
 import org.example.command.loadSave.*;
 import org.example.command.observe.*;
-import org.example.command.trivial.HakuroCommand;
-import org.example.command.trivial.HelpCommand;
+import org.example.command.trivial.*;
 import org.example.command.update.*;
-import org.example.command.exit.ExitCommand;
 
 public class CommandRegister {
 

@@ -68,7 +68,6 @@ public class Main {
         client.execute("redo");
         client.execute("list-tree");
         client.execute("save");
-//        workspaceManager.execute("list");
         client.clientRun();
     }
 

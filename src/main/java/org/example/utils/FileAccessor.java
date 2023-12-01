@@ -1,8 +1,6 @@
 package org.example.utils;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +38,18 @@ public class FileAccessor {
         } catch (IOException e) {
             e.printStackTrace();
 //            System.out.println("发生了一个错误：" + e.getMessage());
+        }
+    }
+
+    public static void writeFile(String filePath, String[] lines) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // 或者抛出自定义异常，根据实际情况处理
         }
     }
 
