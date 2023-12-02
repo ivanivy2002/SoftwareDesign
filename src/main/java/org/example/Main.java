@@ -8,9 +8,11 @@ import org.example.workspace.WorkspaceManager;
 
 public class Main {
     public static void main(String[] args) {
+        Client client = new Client();
+        client.clientRun();
 //        test1();
 //        test0();
-        test2();
+//        test2();
 //        test3();
 //        test4();
 //        testHakuro();

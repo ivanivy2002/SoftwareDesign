@@ -1,0 +1,144 @@
+{
+  "test2": {
+    "active": false,
+    "editor": {
+      "fileString": "test2.md",
+      "lines": [
+        "# 新的标题2@TEST2",
+        "# tail@TEST2"
+      ],
+      "subdir": "./data/"
+    },
+    "executor": {},
+    "historyTable": {
+      "editor": {
+        "$ref": "$.test2.editor"
+      },
+      "historyMap": [
+        {
+          "rawCommand": "init"
+        },
+        {
+          "lines": [],
+          "rawCommand": "load test2.md"
+        },
+        {
+          "lines": [
+            "# 新的标题2@TEST2"
+          ],
+          "rawCommand": "append-head # 新的标题2@TEST2"
+        },
+        {
+          "lines": [
+            "# 新的标题2@TEST2",
+            "# tail@TEST2"
+          ],
+          "rawCommand": "append-tail # tail@TEST2"
+        }
+      ],
+      "redoMap": [],
+      "session": {
+        "logs": [
+          {},
+          {},
+          {}
+        ]
+      },
+      "unsaved": 0
+    },
+    "name": "test2",
+    "path": "./data/",
+    "register": {}
+  },
+  "test3": {
+    "active": true,
+    "editor": {
+      "fileString": "test3.md",
+      "lines": [
+        "# 新的标题3@TEST3"
+      ],
+      "subdir": "./data/"
+    },
+    "executor": {},
+    "historyTable": {
+      "editor": {
+        "$ref": "$.test3.editor"
+      },
+      "historyMap": [
+        {
+          "rawCommand": "init"
+        },
+        {
+          "lines": [],
+          "rawCommand": "load test3.md"
+        },
+        {
+          "lines": [
+            "# 新的标题3@TEST3"
+          ],
+          "rawCommand": "append-head # 新的标题3@TEST3"
+        }
+      ],
+      "redoMap": [],
+      "session": {
+        "logs": [
+          {},
+          {}
+        ]
+      },
+      "unsaved": 0
+    },
+    "name": "test3",
+    "path": "./data/",
+    "register": {}
+  },
+  "test1": {
+    "active": false,
+    "editor": {
+      "fileString": "test1.md",
+      "lines": [
+        "# 新的标题1@TEST1"
+      ],
+      "subdir": "./data/"
+    },
+    "executor": {},
+    "historyTable": {
+      "editor": {
+        "$ref": "$.test1.editor"
+      },
+      "historyMap": [
+        {
+          "rawCommand": "init"
+        },
+        {
+          "lines": [],
+          "rawCommand": "load test1.md"
+        },
+        {
+          "lines": [
+            "# 新的标题1@TEST1"
+          ],
+          "rawCommand": "append-head # 新的标题1@TEST1"
+        },
+        {
+          "lines": [
+            "# 新的标题1@TEST1"
+          ],
+          "rawCommand": "save "
+        }
+      ],
+      "redoMap": [],
+      "session": {
+        "logs": [
+          {},
+          {},
+          {}
+        ]
+      },
+      "unsaved": 1
+    },
+    "name": "test1",
+    "path": "./data/",
+    "register": {}
+  }
+}

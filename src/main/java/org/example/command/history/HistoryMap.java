@@ -1,20 +1,15 @@
 package org.example.command.history;
 
-public class HistoryMap {
+import lombok.Getter;
+
+@Getter
+public class HistoryMap implements java.io.Serializable {
     protected String rawCommand;
     protected String[] lines;
 
     HistoryMap(String rawCommand, String[] lines) {
         this.rawCommand = rawCommand;
         this.lines = lines;
-    }
-
-    public String[] getLines() {
-        return lines;
-    }
-
-    public String getRawCommand() {
-        return rawCommand;
     }
 
     public void setLines(String[] lines) {

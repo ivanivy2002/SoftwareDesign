@@ -13,8 +13,6 @@ public class ListTreeCommand extends VisitEditorCommand {
     @Override
     public int execute(String[] newArgs) {
         ConsoleTool.println("Listing Tree...");
-//        TreeViewBuilder.buildTree(editor.getLines());
-//        TreeViewBuilder.printTree();
         TreeBuilder.build(editor.getLines());
         TreeBuilder.printTreeAll();
         return 0;

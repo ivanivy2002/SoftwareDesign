@@ -1,4 +1,7 @@
 package org.example.command.abstractCommand;
-public interface ICommand {
+
+import java.io.Serializable;
+
+public interface ICommand extends Serializable {
     int execute(String[] args);
 }

@@ -10,7 +10,9 @@ import org.example.command.observe.*;
 import org.example.command.trivial.*;
 import org.example.command.update.*;
 
-public class CommandRegister {
+import java.io.Serializable;
+
+public class CommandRegister implements Serializable {
 
     public void commandReg(CommandExecutor executor, Editor editor, HistoryTable historyTable) {
         //Load and Save

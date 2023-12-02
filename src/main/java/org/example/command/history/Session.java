@@ -8,12 +8,13 @@ import org.example.utils.TimeTool;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Session {
+public class Session implements Serializable {
     //    protected final Editor editor;
     protected String subdir;
     //    protected String fileName;
@@ -22,13 +23,12 @@ public class Session {
     protected List<OutputLog> outputLogs = new ArrayList<>();
     protected LocalDateTime timestampStart;
     protected LocalDateTime timestampEnd;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm:ss");
     protected boolean saved = true;
 
     public Session(String subdir) {
 //        this.editor = editor;
         this.subdir = subdir;
-        ConsoleTool.println("Subdir: " + subdir);
+//        ConsoleTool.println("Subdir: " + subdir);
 //        this.fileName = fileName;
     }
 
@@ -45,6 +45,7 @@ public class Session {
             }
             OutputLog o = new OutputLog();
             timestampStart = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm:ss");
             o.sessionHeader = "session start at " + formatter.format(timestampStart);
             o.outputLog.add(o.sessionHeader);
             o.fileName = StringTool.parseFileNameFromCommand(commandString);

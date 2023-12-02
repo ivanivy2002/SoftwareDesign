@@ -4,13 +4,13 @@ import org.example.command.abstractCommand.ICommand;
 import org.example.command.history.HistoryTable;
 import org.example.utils.ConsoleTool;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandExecutor {
+public class CommandExecutor implements Serializable {
     private final Map<String, ICommand> commands;
 //    HistoryTable historyTable;
-
     public CommandExecutor() {
         this.commands = new HashMap<>();
 //        this.historyTable = historyTable;

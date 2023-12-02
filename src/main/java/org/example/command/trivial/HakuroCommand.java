@@ -5,6 +5,8 @@ import org.example.command.history.HistoryCommand;
 import org.example.command.history.HistoryTable;
 import org.example.utils.ConsoleTool;
 
+import java.io.Serializable;
+
 public class HakuroCommand extends HistoryCommand {
     public HakuroCommand(HistoryTable historyTable) {
         super(historyTable);

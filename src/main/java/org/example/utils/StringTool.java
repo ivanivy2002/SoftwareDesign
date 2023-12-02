@@ -109,4 +109,13 @@ public static boolean isNotNaturalNumber(String str) {
         String[] args = commandString.split("\\s+", 2); // 使用空格作为分隔符切割命令字符串
         return args[1];
     }
+
+    public static String restructPathFromName(String path, String name) {
+        StringBuilder pathBuilder = new StringBuilder(path);
+        String[] parts = name.split("/");
+        for (int i = 0; i < parts.length - 1; i++) {
+            pathBuilder.append(parts[i]).append("/");
+        }
+        return pathBuilder.toString();
+    }
 }

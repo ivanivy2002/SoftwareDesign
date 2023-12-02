@@ -1,23 +1,25 @@
 package org.example.command.history;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.example.Editor;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringSet;
 import org.example.utils.StringTool;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 
 @Getter
-public class HistoryTable {
+@Setter
+public class HistoryTable implements Serializable {
 
     protected final Editor editor;
     //    protected final LinkedHashMap<String, String[]> historyMap;
     protected final Stack<HistoryMap> historyMap;
     protected final Stack<HistoryMap> redoMap;
 //    protected final LinkedHashMap<String, String[]> redoMap;
-
     //    protected List<CommandLog> logs = new ArrayList<>();
     protected Session session;
 

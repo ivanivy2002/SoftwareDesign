@@ -4,8 +4,10 @@ import lombok.Getter;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringTool;
 
+import java.io.Serializable;
+
 @Getter
-public class Editor {
+public class Editor implements Serializable {
     public String[] lines;
     public  String subdir;
 

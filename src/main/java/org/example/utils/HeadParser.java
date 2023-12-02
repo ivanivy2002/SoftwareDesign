@@ -8,7 +8,7 @@ public class HeadParser {
         String[] args = commandString.split("\\s+");
         String commandHead = args[0];
         commandHead = switch (commandHead) {
-            case "ls" -> "list";
+//            case "ls" -> "list";
             case "h" -> "history";
             case "del" -> "delete";
             case "re" -> "redo";

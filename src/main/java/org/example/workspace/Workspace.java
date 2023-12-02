@@ -8,10 +8,12 @@ import org.example.command.CommandExecutor;
 import org.example.command.CommandRegister;
 import org.example.command.history.HistoryTable;
 
+import java.io.Serializable;
+
 @NoArgsConstructor
 @Getter
 @Setter
-public class Workspace {
+public class Workspace implements Serializable {
     protected boolean active;
     protected String name;
     protected String path;
@@ -31,7 +33,23 @@ public class Workspace {
         active = false;
     }
 
-    protected boolean unsaved() {
+    protected boolean checkUnsaved() {
         return historyTable.checkUnsaved();
+    }
+
+    public void save() {
+        historyTable.setUnsaved(0);
+    }
+
+    public int executeCommand(String[] args) {
+        return executor.executeCommand(args);
+    }
+
+    public int pushLog(String commandString) {
+        return historyTable.pushLog(commandString);
+    }
+
+    public void push(String commandString) {
+        historyTable.push(commandString);
     }
 }

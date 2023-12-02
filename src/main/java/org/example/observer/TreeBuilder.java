@@ -10,8 +10,6 @@ public class TreeBuilder {
     public static String[] tree;
     public static int[] level;
     public static Node treeRoot;
-
-
     public static void build(String[] lines) {
         if (lines == null || lines.length == 0) {
             ConsoleTool.println("ERR: Empty Lines!");
