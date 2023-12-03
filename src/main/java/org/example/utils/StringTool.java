@@ -27,8 +27,8 @@ public static boolean isNotNaturalNumber(String str) {
         return s.substring(0, pos) + c + s.substring(pos + 1);
     }
 
-    public static String replaceStringAt(String s, int pos, String c) {
-        return s.substring(0, pos) + c + s.substring(pos + c.length());
+    public static String replaceStringAt(String source, int pos, String c) {
+        return source.substring(0, pos) + c + source.substring(pos + c.length());
     }
 
     public static String[] insertLine(String[] lines,int lineNum, String lineContent){

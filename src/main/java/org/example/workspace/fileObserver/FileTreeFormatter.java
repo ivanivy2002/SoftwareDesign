@@ -3,22 +3,56 @@ package org.example.workspace.fileObserver;
 import org.example.utils.ConsoleTool;
 import org.example.utils.StringTool;
 
-public class FileTreeFormatter {
+import java.util.ArrayList;
+import java.util.List;
 
+import static java.lang.Math.max;
+
+public class FileTreeFormatter {
+    private static final List<FileNode> fileNodes = new ArrayList<>();
     public static void reformatTree(FileNode root, int level) {
         if (root == null) {
             return;
         }
+        root.level = level;
         for (FileNode child : root.children) {
             child.level = level + 1;
-            child.treeContent = String.format("%s%s %s%s", StringTool.repeatString("    ", level), "├──", child.leaf ? "·" : "", child.name);
+            child.treeContent = String.format("%s%s %s", StringTool.repeatString("    ", child.level - 1), "├──", child.name);
             if (root.children.size() - 1 == root.children.indexOf(child)) {
                 child.treeContent = child.treeContent.replace("├──", "└──");
             }
-//            if(belong(child, root)) {
-//                child.treeContent = StringTool.replaceStringAt(child.treeContent, 4*level, "│  ");
-//            }
             reformatTree(child, level + 1);
+        }
+    }
+
+    public static void reformatTreeVertical(FileNode root) {
+        formList(root);
+        for (FileNode fileNode1 : fileNodes) {
+            for (FileNode fileNode2 : fileNodes) {
+                if (fileNode1 != fileNode2 && belong(fileNode1, fileNode2)) {
+                    int pos = max(fileNode2.treeContent.indexOf("├──"), fileNode2.treeContent.indexOf("└──"));
+                    if (pos == -1) {
+                        continue;
+                    }
+                    fileNode1.treeContent = StringTool.replaceStringAt(fileNode1.treeContent, pos, "│  ");
+                }
+            }
+        }
+    }
+
+    public static void reformatAndPrint(FileNode root) {
+        reformatTree(root, 0);
+        reformatTreeVertical(root);
+        printAllNodesContent(root);
+    }
+
+    public static void formList(FileNode root) {
+        if (root == null) {
+            return;
+        }
+        fileNodes.add(root);
+        for (FileNode child : root.children) {
+            formList(child);
         }
     }
 
@@ -117,23 +151,7 @@ public class FileTreeFormatter {
 //        tree = treeLine;
 //    }
 //
-//    public static void reformatTreeVertical() {
-//        for (int i = 0; i < tree.length; i++) {
-//            FileNode root = getNode(treeRoot, i);
-//            if (root.parent.children.size() - 1 != root.parent.children.indexOf(root)) {
-//                if (!root.children.isEmpty()) {
-//                    int index = Math.max(tree[i].indexOf("├──"), tree[i].indexOf("└──"));
-////                    for (Node child : root.children) {
-//                    for (int j = i + 1; j < tree.length; j++) {
-//                        if (belong(getNode(treeRoot, j), root)) {
-//                            tree[j] = StringTool.replaceStringAt(tree[j], index, "│  ");
-//                        }
-//                    }
-////                    }
-//                }
-//            }
-//        }
-//    }
+
 //
 //    public static void printTreeAll() {
 //        if (tree == null) {

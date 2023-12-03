@@ -173,8 +173,7 @@ public class WorkspaceManager {
     private int lsProcess() {
         ConsoleTool.println("# ls Files:");
         originNode = AllFileNamesToNodes(new File(StringTool.restructPathFromName("./data/", cur.getName())));
-        FileTreeFormatter.reformatTree(originNode, 0);
-        FileTreeFormatter.printAllNodesContent(originNode);
+        FileTreeFormatter.reformatAndPrint(originNode);
         return 0;
     }
 
