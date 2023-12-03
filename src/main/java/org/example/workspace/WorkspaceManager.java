@@ -11,6 +11,7 @@ import org.example.utils.FileAccessor;
 import org.example.utils.HeadParser;
 import org.example.utils.StringTool;
 import org.example.workspace.fileObserver.FileNode;
+import org.example.workspace.fileObserver.FileTreeFormatter;
 
 import java.io.*;
 import java.util.HashMap;
@@ -171,8 +172,9 @@ public class WorkspaceManager {
 
     private int lsProcess() {
         ConsoleTool.println("# ls Files:");
-//        FileAccessor.getAllFileNames(new File(path));
         originNode = AllFileNamesToNodes(new File(StringTool.restructPathFromName("./data/", cur.getName())));
+        FileTreeFormatter.reformatTree(originNode, 0);
+        FileTreeFormatter.printAllNodesContent(originNode);
         return 0;
     }
 
@@ -275,17 +277,22 @@ public class WorkspaceManager {
 
     public static FileNode AllFileNamesToNodes(File directory) {
         if (directory.isDirectory()) {
-            System.out.println(">" + directory.getName());
+//            System.out.println(">" + directory.getName());
             FileNode originNode = new FileNode(directory.getName());
+            originNode.setLeaf(false);
             File[] files = directory.listFiles();
             if (files != null) {
                 for (File file : files) {
                     if (file.isFile()) {
-                        System.out.println(file.getName());
+//                        System.out.println(file.getName());
                         FileNode tmp = new FileNode(file.getName());
+                        tmp.setLeaf(true);
                         originNode.addChild(tmp);
                     } else if (file.isDirectory()) {
-                        Objects.requireNonNull(AllFileNamesToNodes(file)).setParent(originNode);
+                        FileNode tmp = AllFileNamesToNodes(file);
+                        assert tmp != null;
+                        tmp.setParent(originNode);
+                        originNode.addChild(tmp);
                     }
                 }
             }

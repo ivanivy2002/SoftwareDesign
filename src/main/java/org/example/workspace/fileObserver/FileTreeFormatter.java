@@ -1,37 +1,59 @@
-//package org.example.workspace.fileObserver;
-//
-//import org.example.utils.ConsoleTool;
-//import org.example.utils.StringTool;
-//
-//public class FileTreeBuilder {
-//    public static String[] tree;
-//    public static int[] level;
-//    public static FileNode treeRoot;
-//
-//    public static void build(String[] lines) {
-//        if (lines == null || lines.length == 0) {
-//            ConsoleTool.println("ERR: Empty Lines!");
-//            return;
-//        }
-//        int[] levelLine = parseLevel(lines);
-//        FileNode root = buildTreeByLevel(levelLine);
-//        reformatTree(lines, root);
-//        reformatTreeVertical();
-//    }
-//
-//    public static int[] parseLevel(String[] lines) {
-//        int[] levelLine = new int[lines.length];
-//        for (int i = 0; i < lines.length; i++) {
-////            lines[i] = args[0];
-//            levelLine[i] = StringTool.countHashes(lines[i].split("\\s+", 2)[0]);
-//            if (levelLine[i] == 0) {
-////                levelLine[i] = LEAF_VALUE;
+package org.example.workspace.fileObserver;
+
+import org.example.utils.ConsoleTool;
+import org.example.utils.StringTool;
+
+public class FileTreeFormatter {
+
+    public static void reformatTree(FileNode root, int level) {
+        if (root == null) {
+            return;
+        }
+        for (FileNode child : root.children) {
+            child.level = level + 1;
+            child.treeContent = String.format("%s%s %s%s", StringTool.repeatString("    ", level), "├──", child.leaf ? "·" : "", child.name);
+            if (root.children.size() - 1 == root.children.indexOf(child)) {
+                child.treeContent = child.treeContent.replace("├──", "└──");
+            }
+//            if(belong(child, root)) {
+//                child.treeContent = StringTool.replaceStringAt(child.treeContent, 4*level, "│  ");
 //            }
-//        }
-//        level = levelLine;
-//        return levelLine;
-//    }
-//
+            reformatTree(child, level + 1);
+        }
+    }
+
+    public static void printAllNodes(FileNode root) {
+        if (root == null) {
+            return;
+        }
+        root.printNode();
+        for (FileNode child : root.children) {
+            printAllNodes(child);
+        }
+    }
+
+    public static void printAllNodesContent(FileNode root) {
+        if (root == null) {
+            return;
+        }
+        root.printContent();
+        for (FileNode child : root.children) {
+            printAllNodesContent(child);
+        }
+    }
+
+    public static boolean belong(FileNode cur, FileNode root) {
+        while (cur.parent != null) {
+            if (cur.parent == root) {
+                return true;
+            }
+            cur = cur.parent;
+        }
+        return false;
+    }
+}
+
+
 //    public static FileNode buildTreeByLevel(int[] level) {
 //        if (level == null || level.length == 0) {
 //            return null;
@@ -59,7 +81,7 @@
 //        treeRoot = root;
 //        return root;
 //    }
-//
+
 //    public static void reformatTree(String[] lines, FileNode root) {
 //        if (root == null) {
 //            return;
@@ -133,8 +155,6 @@
 ////            System.out.println("L"+root.lineNum+":"+root.value+" child: L"+child.lineNum +":"+ child.value + " ");
 //            printTree(child);
 //        }
-////        printTree(root.right);
-////        System.out.println();
 //    }
 //
 //    public static FileNode getNode(FileNode root, int lineNum) {
@@ -153,15 +173,7 @@
 //        return null;
 //    }
 //
-//    public static boolean belong(FileNode cur, FileNode root) {
-//        while (cur.parent != null) {
-//            if (cur.parent == root) {
-//                return true;
-//            }
-//            cur = cur.parent;
-//        }
-//        return false;
-//    }
+
 //
 //    public static void showDir(String[] lines, Integer matchingLineNum) {
 //        int[] levelLine = parseLevel(lines);
@@ -181,4 +193,3 @@
 //        reformatTreeVertical();
 //        printTreeAll();
 //    }
-//}

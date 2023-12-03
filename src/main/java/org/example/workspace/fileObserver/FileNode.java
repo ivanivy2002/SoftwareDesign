@@ -9,24 +9,34 @@ import java.util.List;
 @Getter
 @Setter
 public class FileNode {
-    //    final int lineNum;
     String name;
-    //    String[] names;
     int level;
     List<FileNode> children;
     FileNode parent;
+    String treeContent;
+    boolean leaf;
 
-    public FileNode(String fullname) {
-//        this.lineNum = lineNum;
-//        names = fullname.split("/");
-//        names[names.length- 1] = names[names.length - 1].split(".md")[0];
-//        level = names.length - 1;
+    public FileNode(String inputName) {
+        name = inputName;
         children = new ArrayList<>();
         parent = null;
+        treeContent = "";
     }
 
     public void addChild(FileNode tmp) {
         children.add(tmp);
         tmp.setParent(this);
+    }
+
+    public void printNode() {
+        String leafString = "file";
+        if (!leaf) {
+            leafString = "dir";
+        }
+        System.out.println("name: " + name + " " + leafString); //" level: " + level + " children: " + children.size()
+    }
+
+    public void printContent() {
+        System.out.println(treeContent);
     }
 }
